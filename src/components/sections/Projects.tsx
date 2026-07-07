@@ -98,7 +98,7 @@ function CardCarousel({ images, title, onOpenGallery }: {
         {/* Zoom hint */}
         <div style={{
           position: 'absolute', bottom: '0.625rem', right: '0.625rem',
-          background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+          background: 'rgba(0,0,0,0.7)',
           borderRadius: 6, padding: '0.2rem 0.45rem',
           display: 'flex', alignItems: 'center', gap: '0.25rem',
           pointerEvents: 'none',
@@ -116,15 +116,12 @@ function CardCarousel({ images, title, onOpenGallery }: {
               style={{
                 position: 'absolute', left: '0.5rem', top: '50%', transform: 'translateY(-50%)',
                 width: 28, height: 28,
-                background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+                background: 'rgba(0,0,0,0.7)',
                 border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 7,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', color: 'rgba(255,255,255,0.75)',
-                transition: 'background 150ms, color 150ms',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.85)'; e.currentTarget.style.color = '#fff' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.6)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)' }}
             >
               <ChevronLeft size={13} strokeWidth={2} />
             </button>
@@ -134,15 +131,12 @@ function CardCarousel({ images, title, onOpenGallery }: {
               style={{
                 position: 'absolute', right: '0.5rem', top: '50%', transform: 'translateY(-50%)',
                 width: 28, height: 28,
-                background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+                background: 'rgba(0,0,0,0.7)',
                 border: '1px solid rgba(255,255,255,0.1)',
                 borderRadius: 7,
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 cursor: 'pointer', color: 'rgba(255,255,255,0.75)',
-                transition: 'background 150ms, color 150ms',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.85)'; e.currentTarget.style.color = '#fff' }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(0,0,0,0.6)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)' }}
             >
               <ChevronRight size={13} strokeWidth={2} />
             </button>
@@ -182,7 +176,6 @@ function CardCarousel({ images, title, onOpenGallery }: {
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [galleryOpen, setGalleryOpen]   = useState(false)
   const [galleryStart, setGalleryStart] = useState(0)
-  const [hovered, setHovered]           = useState(false)
 
   function openGallery(idx: number) {
     if (project.images.length === 0) return
@@ -193,16 +186,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <>
       <FadeIn delay={index * 0.07} direction="up" style={{ height: '100%' }}>
-        <motion.article
-          onHoverStart={() => setHovered(true)}
-          onHoverEnd={() => setHovered(false)}
-          animate={{
-            y: hovered ? -5 : 0,
-            boxShadow: hovered
-              ? '0 24px 56px rgba(0,0,0,0.55), 0 0 0 1px rgba(59,130,246,0.18)'
-              : '0 4px 16px rgba(0,0,0,0.3), 0 0 0 1px rgba(255,255,255,0.06)',
-          }}
-          transition={{ duration: 0.22, ease: EASE }}
+        <article
           style={{
             height: '100%',
             display: 'flex',
@@ -363,7 +347,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               </a>
             )}
           </div>
-        </motion.article>
+        </article>
       </FadeIn>
 
       {galleryOpen && project.images.length > 0 && (

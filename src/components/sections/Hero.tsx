@@ -38,7 +38,6 @@ export function Hero() {
           minHeight: '100vh',
           display: 'flex',
           alignItems: 'center',
-          overflow: 'hidden',
         }}
       >
         {/* Decorative orbs */}
@@ -76,10 +75,7 @@ export function Hero() {
                   lineHeight: 1.0,
                   letterSpacing: '-0.045em',
                   marginBottom: '1.25rem',
-                  background: 'linear-gradient(135deg, #ffffff 0%, #ffffff 45%, #93c5fd 100%)',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
-                  backgroundClip: 'text',
+                  color: '#ffffff',
                 }}
               >
                 Muhammad<br />Faizan Khan

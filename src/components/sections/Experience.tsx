@@ -1,4 +1,3 @@
-import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FadeIn } from '@/components/ui'
 
@@ -42,34 +41,18 @@ const EXPERIENCES = [
 const DOT   = 10   // px
 const TRACK = 20   // px — total left column width (line sits at center = 10px)
 
-function TimelineDot({ index }: { index: number }) {
-  const reduced = useReducedMotion()
+function TimelineDot({ index: _index }: { index: number }) {
   return (
     <div style={{
       width: TRACK, flexShrink: 0,
       display: 'flex', justifyContent: 'center',
-      paddingTop: 6, // aligns dot with first line of company name
+      paddingTop: 6,
     }}>
       <div style={{ position: 'relative', width: DOT, height: DOT }}>
-        {/* Pulse ring */}
-        {!reduced && (
-          <motion.div
-            animate={{ scale: [1, 2.4, 1], opacity: [0.5, 0, 0.5] }}
-            transition={{ duration: 2.6, repeat: Infinity, ease: 'easeInOut', delay: index * 0.7 }}
-            style={{
-              position: 'absolute',
-              inset: -1,
-              borderRadius: '50%',
-              background: 'rgba(59,130,246,0.4)',
-              pointerEvents: 'none',
-            }}
-          />
-        )}
-        {/* Core */}
         <div style={{
           width: DOT, height: DOT, borderRadius: '50%',
           background: 'radial-gradient(circle at 35% 35%, #93c5fd, #3b82f6)',
-          boxShadow: '0 0 8px rgba(59,130,246,0.7), 0 0 2px rgba(147,197,253,0.5)',
+          boxShadow: '0 0 8px rgba(59,130,246,0.7)',
           border: '1.5px solid rgba(147,197,253,0.35)',
           position: 'relative', zIndex: 1,
         }} />
@@ -79,7 +62,6 @@ function TimelineDot({ index }: { index: number }) {
 }
 
 export function Experience() {
-  useReducedMotion()
 
   return (
     <section
@@ -119,11 +101,7 @@ export function Experience() {
           <div style={{ display: 'flex', flexDirection: 'column', gap: '2.75rem' }}>
             {EXPERIENCES.map((exp, i) => (
               <FadeIn key={exp.company} delay={i * 0.1} direction="up">
-                <motion.div
-                  initial={false}
-                  whileHover="hovered"
-                  style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}
-                >
+                <div style={{ display: 'flex', gap: '1.25rem', alignItems: 'flex-start' }}>
                   {/* ── Left: dot track ── */}
                   <TimelineDot index={i} />
 
@@ -244,7 +222,7 @@ export function Experience() {
 
                     </div>
                   </div>
-                </motion.div>
+                </div>
               </FadeIn>
             ))}
           </div>
