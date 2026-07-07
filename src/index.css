@@ -345,7 +345,7 @@ code, pre { font-family: var(--font-mono); }
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
   /* Minimum 44px touch targets for interactive elements */
-  button:not([aria-hidden]),
+  button:not([aria-hidden]):not(.dot-btn),
   a:not([aria-hidden]),
   [role="button"] {
     min-height: 44px;

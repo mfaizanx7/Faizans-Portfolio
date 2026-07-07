@@ -161,8 +161,10 @@ function CardCarousel({ images, title, onOpenGallery }: {
               key={i}
               onClick={() => { setDir(i > active ? 1 : -1); setActive(i) }}
               aria-label={`Go to screenshot ${i + 1}`}
+              className="dot-btn"
               style={{
                 width: i === active ? 18 : 5, height: 5,
+                minHeight: 'unset',
                 borderRadius: 'var(--radius-full)',
                 background: i === active ? 'var(--color-accent)' : 'rgba(255,255,255,0.12)',
                 border: 'none', cursor: 'pointer', padding: 0,

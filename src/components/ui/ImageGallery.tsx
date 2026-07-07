@@ -239,9 +239,14 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
               exit={{ scale: 0.94, opacity: 0 }}
               transition={{ duration: 0.22, ease: EASE }}
               style={{
-                position: 'relative', maxWidth: '90vw', maxHeight: '85vh',
+                position: 'relative',
+                width: '90vw',
+                maxWidth: 1100,
+                maxHeight: '85vh',
                 borderRadius: 'var(--radius-xl)', overflow: 'hidden',
                 border: '1px solid rgba(255,255,255,0.1)',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                background: '#0a0a0c',
               }}
             >
               <AnimatePresence custom={dir} mode="wait">
@@ -255,7 +260,14 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
                   transition={{ duration: 0.25, ease: EASE }}
                   src={images[modalIdx]}
                   alt={`${projectTitle} screenshot ${modalIdx + 1}`}
-                  style={{ display: 'block', maxWidth: '90vw', maxHeight: '85vh', objectFit: 'contain' }}
+                  style={{
+                    display: 'block',
+                    maxWidth: '90vw',
+                    maxHeight: '85vh',
+                    width: 'auto',
+                    height: 'auto',
+                    objectFit: 'contain',
+                  }}
                 />
               </AnimatePresence>
             </motion.div>

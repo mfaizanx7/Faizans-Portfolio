@@ -112,14 +112,16 @@ export function Footer() {
           gap: 2rem;
           align-items: flex-start;
         }
-        @media (max-width: 640px) {
+        @media (max-width: 767px) {
           .footer-grid {
             grid-template-columns: 1fr 1fr;
+            gap: 2rem 1.5rem;
           }
         }
-        @media (max-width: 380px) {
+        @media (max-width: 400px) {
           .footer-grid {
             grid-template-columns: 1fr;
+            gap: 1.75rem;
           }
         }
       `}</style>
