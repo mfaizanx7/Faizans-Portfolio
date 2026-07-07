@@ -1,13 +1,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronLeft, ChevronRight, X, ZoomIn } from 'lucide-react'
 
 interface ImageGalleryProps {
   images: string[]
   projectTitle: string
-  /** When provided, renders as a standalone fullscreen modal immediately */
   initialIndex?: number
-  /** Called when the standalone modal is closed */
   onClose?: () => void
 }
 
@@ -21,10 +20,8 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
   const [modalIdx, setModalIdx] = useState(0)
   const [dir, setDir]           = useState(1)
   const closeRef                = useRef<HTMLButtonElement>(null)
-
   const count = images.length
 
-  // Standalone mode: open immediately at initialIndex
   useEffect(() => {
     if (standalone) {
       setModalIdx(initialIndex!)
@@ -32,27 +29,21 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
     }
   }, [standalone, initialIndex])
 
-  const go = useCallback((next: number, direction: number) => {
-    setDir(direction)
+  const go = useCallback((next: number, d: number) => {
+    setDir(d)
     setActive(((next % count) + count) % count)
   }, [count])
 
-  const openModal = (idx: number) => {
-    setModalIdx(idx)
-    setModal(true)
-  }
+  const openModal = (idx: number) => { setModalIdx(idx); setModal(true) }
 
   const closeModal = useCallback(() => {
     setModal(false)
-    if (standalone && onClose) {
-      onClose()
-    } else {
-      setTimeout(() => closeRef.current?.focus(), 50)
-    }
+    if (standalone && onClose) onClose()
+    else setTimeout(() => closeRef.current?.focus(), 50)
   }, [standalone, onClose])
 
-  const modalGo = useCallback((next: number, direction: number) => {
-    setDir(direction)
+  const modalGo = useCallback((next: number, d: number) => {
+    setDir(d)
     setModalIdx(((next % count) + count) % count)
   }, [count])
 
@@ -74,15 +65,154 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
 
   if (count === 0) return null
 
-  const variants = {
-    enter:  (d: number) => ({ opacity: 0, x: d * 40 }),
+  const slideVariants = {
+    enter:  (d: number) => ({ opacity: 0, x: d * 60 }),
     center: { opacity: 1, x: 0 },
-    exit:   (d: number) => ({ opacity: 0, x: d * -40 }),
+    exit:   (d: number) => ({ opacity: 0, x: d * -60 }),
   }
+
+  const modal_el = createPortal(
+    <AnimatePresence>
+      {modal && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.2 }}
+          onClick={closeModal}
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${projectTitle} screenshot viewer`}
+          style={{
+            position: 'fixed', inset: 0, zIndex: 9999,
+            background: 'rgba(0,0,0,0.95)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          {/* Close button */}
+          <button
+            ref={closeRef}
+            onClick={closeModal}
+            aria-label="Close image viewer"
+            style={{
+              position: 'absolute', top: '1rem', right: '1rem',
+              width: 44, height: 44, minHeight: 'unset',
+              background: 'rgba(255,255,255,0.08)',
+              border: '1px solid rgba(255,255,255,0.12)',
+              borderRadius: 10,
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              cursor: 'pointer', color: 'rgba(255,255,255,0.7)',
+              transition: 'background 150ms', zIndex: 1,
+            }}
+            onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.16)')}
+            onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+          >
+            <X size={18} strokeWidth={2} />
+          </button>
+
+          {/* Image container */}
+          <motion.div
+            onClick={e => e.stopPropagation()}
+            initial={{ scale: 0.92, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.92, opacity: 0 }}
+            transition={{ duration: 0.22, ease: EASE }}
+            style={{
+              position: 'relative',
+              maxWidth: '92vw',
+              maxHeight: '82vh',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <AnimatePresence custom={dir} mode="wait">
+              <motion.img
+                key={modalIdx}
+                custom={dir}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{ duration: 0.22, ease: EASE }}
+                src={images[modalIdx]}
+                alt={`${projectTitle} screenshot ${modalIdx + 1}`}
+                style={{
+                  display: 'block',
+                  maxWidth: '92vw',
+                  maxHeight: '82vh',
+                  width: 'auto',
+                  height: 'auto',
+                  borderRadius: 12,
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  boxShadow: '0 24px 64px rgba(0,0,0,0.7)',
+                }}
+              />
+            </AnimatePresence>
+          </motion.div>
+
+          {/* Prev / Next */}
+          {count > 1 && (
+            <>
+              <button
+                onClick={e => { e.stopPropagation(); modalGo(modalIdx - 1, -1) }}
+                aria-label="Previous image"
+                style={{
+                  position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)',
+                  width: 44, height: 44, minHeight: 'unset',
+                  background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: 10,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', color: 'rgba(255,255,255,0.8)', transition: 'background 150ms',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.16)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+              >
+                <ChevronLeft size={20} strokeWidth={2} />
+              </button>
+              <button
+                onClick={e => { e.stopPropagation(); modalGo(modalIdx + 1, 1) }}
+                aria-label="Next image"
+                style={{
+                  position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
+                  width: 44, height: 44, minHeight: 'unset',
+                  background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
+                  borderRadius: 10,
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  cursor: 'pointer', color: 'rgba(255,255,255,0.8)', transition: 'background 150ms',
+                }}
+                onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.16)')}
+                onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
+              >
+                <ChevronRight size={20} strokeWidth={2} />
+              </button>
+            </>
+          )}
+
+          {/* Counter */}
+          <div style={{
+            position: 'absolute', bottom: '1.25rem', left: '50%', transform: 'translateX(-50%)',
+            background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+            borderRadius: 999, padding: '0.3rem 0.875rem',
+            fontSize: 12, color: 'rgba(255,255,255,0.6)',
+            pointerEvents: 'none',
+          }}>
+            {modalIdx + 1} / {count}
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>,
+    document.body
+  )
 
   return (
     <>
-      {/* ── Inline strip (only shown when not standalone) ── */}
+      {/* Inline strip — only when not standalone */}
       {!standalone && (
         <div>
           <div
@@ -105,7 +235,7 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
               <motion.img
                 key={active}
                 custom={dir}
-                variants={variants}
+                variants={slideVariants}
                 initial="enter"
                 animate="center"
                 exit="exit"
@@ -136,7 +266,8 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
                   aria-label="Previous screenshot"
                   style={{
                     position: 'absolute', left: '0.75rem', top: '50%', transform: 'translateY(-50%)',
-                    width: 32, height: 32, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+                    width: 32, height: 32, minHeight: 'unset',
+                    background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
                     border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: 'pointer', color: 'rgba(255,255,255,0.8)', transition: 'background 150ms',
@@ -151,7 +282,8 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
                   aria-label="Next screenshot"
                   style={{
                     position: 'absolute', right: '0.75rem', top: '50%', transform: 'translateY(-50%)',
-                    width: 32, height: 32, background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
+                    width: 32, height: 32, minHeight: 'unset',
+                    background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
                     border: '1px solid rgba(255,255,255,0.1)', borderRadius: 'var(--radius-md)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     cursor: 'pointer', color: 'rgba(255,255,255,0.8)', transition: 'background 150ms',
@@ -174,7 +306,7 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
                   aria-label={`View screenshot ${i + 1}`}
                   aria-pressed={i === active}
                   style={{
-                    flexShrink: 0, width: 72, height: 48,
+                    flexShrink: 0, width: 72, height: 48, minHeight: 'unset',
                     borderRadius: 'var(--radius-md)', overflow: 'hidden',
                     border: i === active ? '2px solid var(--color-accent)' : '2px solid rgba(255,255,255,0.08)',
                     cursor: 'pointer', padding: 0, transition: 'border-color 150ms',
@@ -194,132 +326,7 @@ export function ImageGallery({ images, projectTitle, initialIndex, onClose }: Im
         </div>
       )}
 
-      {/* ── Modal ── */}
-      <AnimatePresence>
-        {modal && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={closeModal}
-            role="dialog"
-            aria-modal="true"
-            aria-label={`${projectTitle} screenshot viewer`}
-            style={{
-              position: 'fixed', inset: 0, zIndex: 100,
-              background: 'rgba(0,0,0,0.92)', backdropFilter: 'blur(12px)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              padding: '1.5rem',
-            }}
-          >
-            <button
-              ref={closeRef}
-              onClick={closeModal}
-              aria-label="Close image viewer"
-              style={{
-                position: 'absolute', top: '1.25rem', right: '1.25rem',
-                width: 40, height: 40,
-                background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
-                borderRadius: 'var(--radius-md)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                cursor: 'pointer', color: 'rgba(255,255,255,0.7)', zIndex: 101,
-                transition: 'background 150ms',
-              }}
-              onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')}
-              onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
-            >
-              <X size={18} strokeWidth={2} />
-            </button>
-
-            <motion.div
-              onClick={e => e.stopPropagation()}
-              initial={{ scale: 0.94, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.94, opacity: 0 }}
-              transition={{ duration: 0.22, ease: EASE }}
-              style={{
-                position: 'relative',
-                width: '90vw',
-                maxWidth: 1100,
-                maxHeight: '85vh',
-                borderRadius: 'var(--radius-xl)', overflow: 'hidden',
-                border: '1px solid rgba(255,255,255,0.1)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                background: '#0a0a0c',
-              }}
-            >
-              <AnimatePresence custom={dir} mode="wait">
-                <motion.img
-                  key={modalIdx}
-                  custom={dir}
-                  variants={variants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  transition={{ duration: 0.25, ease: EASE }}
-                  src={images[modalIdx]}
-                  alt={`${projectTitle} screenshot ${modalIdx + 1}`}
-                  style={{
-                    display: 'block',
-                    maxWidth: '90vw',
-                    maxHeight: '85vh',
-                    width: 'auto',
-                    height: 'auto',
-                    objectFit: 'contain',
-                  }}
-                />
-              </AnimatePresence>
-            </motion.div>
-
-            {count > 1 && (
-              <>
-                <button
-                  onClick={e => { e.stopPropagation(); modalGo(modalIdx - 1, -1) }}
-                  aria-label="Previous image"
-                  style={{
-                    position: 'absolute', left: '1rem', top: '50%', transform: 'translateY(-50%)',
-                    width: 44, height: 44,
-                    background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
-                    borderRadius: 'var(--radius-lg)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'pointer', color: 'rgba(255,255,255,0.8)', transition: 'background 150ms',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')}
-                  onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
-                >
-                  <ChevronLeft size={20} strokeWidth={2} />
-                </button>
-                <button
-                  onClick={e => { e.stopPropagation(); modalGo(modalIdx + 1, 1) }}
-                  aria-label="Next image"
-                  style={{
-                    position: 'absolute', right: '1rem', top: '50%', transform: 'translateY(-50%)',
-                    width: 44, height: 44,
-                    background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)',
-                    borderRadius: 'var(--radius-lg)',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    cursor: 'pointer', color: 'rgba(255,255,255,0.8)', transition: 'background 150ms',
-                  }}
-                  onMouseEnter={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.14)')}
-                  onMouseLeave={e => (e.currentTarget.style.background = 'rgba(255,255,255,0.08)')}
-                >
-                  <ChevronRight size={20} strokeWidth={2} />
-                </button>
-              </>
-            )}
-
-            <div style={{
-              position: 'absolute', bottom: '1.25rem', left: '50%', transform: 'translateX(-50%)',
-              background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)',
-              borderRadius: 'var(--radius-full)', padding: '0.3rem 0.875rem',
-              fontSize: '12px', color: 'rgba(255,255,255,0.6)',
-            }}>
-              {modalIdx + 1} / {count}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {modal_el}
     </>
   )
 }

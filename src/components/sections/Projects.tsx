@@ -367,14 +367,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       </FadeIn>
 
       {galleryOpen && project.images.length > 0 && (
-        <div style={{ position: 'fixed', inset: 0, zIndex: 200 }}>
-          <ImageGallery
-            images={project.images}
-            projectTitle={project.title}
-            initialIndex={galleryStart}
-            onClose={() => setGalleryOpen(false)}
-          />
-        </div>
+        <ImageGallery
+          images={project.images}
+          projectTitle={project.title}
+          initialIndex={galleryStart}
+          onClose={() => setGalleryOpen(false)}
+        />
       )}
     </>
   )
