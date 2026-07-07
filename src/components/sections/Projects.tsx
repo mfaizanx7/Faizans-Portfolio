@@ -186,7 +186,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <>
       <FadeIn delay={index * 0.07} direction="up" style={{ height: '100%' }}>
-        <article
+        <motion.article
+          whileHover={{ y: -4, boxShadow: '0 16px 48px rgba(0,0,0,0.4)' }}
+          transition={{ duration: 0.22, ease: [0.16, 1, 0.3, 1] }}
           style={{
             height: '100%',
             display: 'flex',
@@ -197,6 +199,8 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             padding: '1.25rem',
             cursor: 'default',
             overflow: 'hidden',
+            transform: 'translate3d(0,0,0)',
+            willChange: 'transform',
           }}
         >
           {/* ── Carousel ── */}
@@ -347,7 +351,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               </a>
             )}
           </div>
-        </article>
+        </motion.article>
       </FadeIn>
 
       {galleryOpen && project.images.length > 0 && (

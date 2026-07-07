@@ -348,8 +348,11 @@ html, body { overflow-x: hidden; }
   .container {
     padding-inline: max(1rem, env(safe-area-inset-left, 1rem));
   }
-  /* Kill blur filters on mobile — main cause of scroll ghosting */
+  /* Reduce blur on mobile to prevent scroll ghosting */
   .glow-orb {
-    display: none;
+    filter: blur(60px);
+    opacity: 0.5;
+    will-change: auto;
+    transform: translate3d(0,0,0);
   }
 }

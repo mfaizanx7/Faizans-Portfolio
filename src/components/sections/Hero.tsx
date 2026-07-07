@@ -75,7 +75,12 @@ export function Hero() {
                   lineHeight: 1.0,
                   letterSpacing: '-0.045em',
                   marginBottom: '1.25rem',
-                  color: '#ffffff',
+                  background: 'linear-gradient(135deg, #ffffff 0%, #93c5fd 50%, #ffffff 100%)',
+                  WebkitBackgroundClip: 'text',
+                  WebkitTextFillColor: 'transparent',
+                  backgroundClip: 'text',
+                  isolation: 'isolate',
+                  transform: 'translate3d(0,0,0)',
                 }}
               >
                 Muhammad<br />Faizan Khan

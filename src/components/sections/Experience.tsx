@@ -1,3 +1,4 @@
+import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FadeIn } from '@/components/ui'
 
@@ -49,6 +50,19 @@ function TimelineDot({ index: _index }: { index: number }) {
       paddingTop: 6,
     }}>
       <div style={{ position: 'relative', width: DOT, height: DOT }}>
+        {/* Pulse ring */}
+        <motion.div
+          animate={{ scale: [1, 1.9], opacity: [0.5, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeOut' }}
+          style={{
+            position: 'absolute',
+            inset: -4,
+            borderRadius: '50%',
+            border: '1.5px solid rgba(59,130,246,0.6)',
+            willChange: 'transform, opacity',
+            transform: 'translate3d(0,0,0)',
+          }}
+        />
         <div style={{
           width: DOT, height: DOT, borderRadius: '50%',
           background: 'radial-gradient(circle at 35% 35%, #93c5fd, #3b82f6)',
