@@ -21,6 +21,25 @@ function useIsMobile() {
   return mobile
 }
 
+async function forceDownload(url: string, filename: string) {
+  try {
+    const res = await fetch(url)
+    const blob = await res.blob()
+    const a = document.createElement('a')
+    a.href = URL.createObjectURL(blob)
+    a.download = filename
+    a.click()
+    URL.revokeObjectURL(a.href)
+  } catch {
+    // fallback: direct link
+    const a = document.createElement('a')
+    a.href = url
+    a.download = filename
+    a.target = '_blank'
+    a.click()
+  }
+}
+
 export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
   const closeRef = useRef<HTMLButtonElement>(null)
   const [loaded, setLoaded] = useState(false)
@@ -135,15 +154,15 @@ export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
                   </a>
                 )}
 
-                <a
-                  href={pdfUrl}
-                  download="M-Faizan-Khan-Resume.pdf"
+                <button
+                  onClick={() => forceDownload(pdfUrl, 'M-Faizan-Khan-Resume.pdf')}
+                  aria-label="Download Resume"
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
                     padding: '0 0.875rem', height: 34,
                     fontSize: 12, fontWeight: 600, color: '#fff',
                     background: 'linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)',
-                    borderRadius: 8, textDecoration: 'none',
+                    borderRadius: 8, border: 'none', cursor: 'pointer',
                     transition: 'filter 150ms',
                     boxShadow: '0 2px 12px rgba(59,130,246,0.35)',
                     whiteSpace: 'nowrap',
@@ -153,7 +172,7 @@ export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
                 >
                   <Download size={13} strokeWidth={2.5} />
                   Download
-                </a>
+                </button>
 
                 <button
                   ref={closeRef}
@@ -205,21 +224,20 @@ export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
                 </div>
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', width: '100%', maxWidth: 280 }}>
-                  <a
-                    href={pdfUrl}
-                    download="M-Faizan-Khan-Resume.pdf"
+                  <button
+                    onClick={() => forceDownload(pdfUrl, 'M-Faizan-Khan-Resume.pdf')}
                     style={{
                       display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                      padding: '0.875rem 1.5rem',
+                      padding: '0.875rem 1.5rem', width: '100%',
                       fontSize: 15, fontWeight: 600, color: '#fff',
                       background: 'linear-gradient(135deg, #3B82F6 0%, #6366F1 100%)',
-                      borderRadius: 12, textDecoration: 'none',
+                      borderRadius: 12, border: 'none', cursor: 'pointer',
                       boxShadow: '0 4px 20px rgba(59,130,246,0.4)',
                     }}
                   >
                     <Download size={16} strokeWidth={2.5} />
                     Download PDF
-                  </a>
+                  </button>
 
                   <a
                     href={pdfUrl}
