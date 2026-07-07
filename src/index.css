@@ -258,7 +258,8 @@ code, pre { font-family: var(--font-mono); }
 @media (min-width: 1024px) { .section { padding-block: 8rem; } }
 
 /* Prevent horizontal overflow on all screens */
-#root { overflow-x: hidden; }
+html, body { overflow-x: hidden; }
+#root { overflow-x: clip; }
 
 @media (min-width: 900px) {
   .about-grid { grid-template-columns: 1fr 1.6fr; }
@@ -346,5 +347,9 @@ code, pre { font-family: var(--font-mono); }
 @media (max-width: 767px) {
   .container {
     padding-inline: max(1rem, env(safe-area-inset-left, 1rem));
+  }
+  /* Kill blur filters on mobile — main cause of scroll ghosting */
+  .glow-orb {
+    display: none;
   }
 }

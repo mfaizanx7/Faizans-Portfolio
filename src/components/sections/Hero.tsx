@@ -47,12 +47,14 @@ export function Hero() {
           width: '50vw', height: '50vw',
           maxWidth: 640, maxHeight: 640,
           background: 'radial-gradient(circle, rgba(59,130,246,0.07) 0%, transparent 65%)',
+          willChange: 'auto',
         }} />
         <div aria-hidden className="glow-orb" style={{
           bottom: '5%', left: '-10%',
           width: '35vw', height: '35vw',
           maxWidth: 480, maxHeight: 480,
           background: 'radial-gradient(circle, rgba(99,102,241,0.04) 0%, transparent 65%)',
+          willChange: 'auto',
         }} />
 
         <div className="container hero-container">
