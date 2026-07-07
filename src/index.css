@@ -341,21 +341,10 @@ code, pre { font-family: var(--font-mono); }
 }
 
 /* ─────────────────────────────────────────────────────────────
-   MOBILE TOUCH TARGETS & SAFE AREAS
+   MOBILE SAFE AREAS
 ───────────────────────────────────────────────────────────── */
 @media (max-width: 767px) {
-  /* Minimum 44px touch targets for interactive elements */
-  button:not([aria-hidden]):not(.dot-btn),
-  a:not([aria-hidden]),
-  [role="button"] {
-    min-height: 44px;
-  }
-  /* Safe area insets for notched phones */
   .container {
     padding-inline: max(1rem, env(safe-area-inset-left, 1rem));
-  }
-  /* Prevent font inflation on iOS */
-  body {
-    -webkit-text-size-adjust: 100%;
   }
 }
