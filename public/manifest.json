@@ -1,0 +1,17 @@
+{
+  "name": "Muhammad Faizan Khan | Backend Developer",
+  "short_name": "Faizan Khan",
+  "description": "Backend Developer specializing in Laravel, PHP, MySQL, REST APIs and production-ready web applications.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#09090B",
+  "theme_color": "#09090B",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
