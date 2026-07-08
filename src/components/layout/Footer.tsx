@@ -101,26 +101,7 @@ export function Footer() {
           marginTop: '2rem',
           paddingTop: '1.25rem',
           borderTop: '1px solid rgba(255,255,255,0.05)',
-          display: 'flex', flexWrap: 'wrap',
-          alignItems: 'center', justifyContent: 'space-between',
-          gap: '0.375rem',
-        }}>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.01em' }}>
-            Open to full-time roles · Available now
-          </p>
-          <a
-            href={`mailto:${meta.email}`}
-            style={{
-              fontSize: 12, color: 'rgba(255,255,255,0.3)',
-              letterSpacing: '0.01em', transition: 'color 150ms',
-              minHeight: 'unset',
-            }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
-          >
-            {meta.email}
-          </a>
-        </div>
+        }} />
 
       </div>
 
