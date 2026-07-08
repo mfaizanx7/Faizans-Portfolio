@@ -438,16 +438,19 @@ export function Hero() {
             justify-content: center;
             min-width: 0;
           }
-          .hero-btn-outline {
+          .hero-btn-github,
+          .hero-btn-linkedin {
             flex: 1 1 auto;
             justify-content: center;
+            min-width: 0;
           }
         }
 
         @media (max-width: 380px) {
           .hero-btn-primary,
           .hero-btn-resume,
-          .hero-btn-outline {
+          .hero-btn-github,
+          .hero-btn-linkedin {
             width: 100%;
           }
         }
