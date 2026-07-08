@@ -63,17 +63,17 @@ export const stackGroups: StackGroup[] = [
   {
     label: 'Frontend Development',
     color: '#A78BFA',
-    skills: ['React.js', 'Redux', 'TypeScript', 'Vite', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'Responsive Web Design'],
+    skills: ['React.js', 'Redux', 'TypeScript', 'Vite', 'JavaScript (ES6+)', 'HTML5', 'CSS3', 'Bootstrap', 'Responsive Web Design'],
   },
   {
     label: 'Data Layer',
     color: '#34D399',
-    skills: ['MySQL', 'SQL Server', 'PostgreSQL', 'MongoDB', 'Stored Procedures', 'Query Optimization', 'Database Design'],
+    skills: ['MySQL', 'SQL Server', 'PostgreSQL', 'MongoDB', 'Database Design', 'Stored Procedures', 'Query Optimization'],
   },
   {
     label: 'Tools & Deployment',
     color: '#F59E0B',
-    skills: ['Git', 'GitHub', 'Postman', 'VS Code', 'Composer', 'npm', 'Docker', 'Linux', 'AWS EC2', 'cPanel', 'GitHub Actions', 'DNS', 'SSL'],
+    skills: ['Git', 'GitHub', 'GitHub Actions', 'Docker', 'AWS EC2', 'cPanel', 'Linux', 'SSL', 'DNS', 'Postman', 'VS Code', 'Composer', 'npm'],
   },
 ]
 
