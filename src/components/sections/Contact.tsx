@@ -272,7 +272,7 @@ export function Contact() {
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                     {[
-                      { label: meta.email,  href: `mailto:${meta.email}`, icon: null,                      external: false },
+                      { label: 'Gmail',     href: `mailto:${meta.email}`, icon: null,                      external: false },
                       { label: 'GitHub',    href: meta.github,            icon: <FiGithub size={12} />,    external: true  },
                       { label: 'LinkedIn',  href: meta.linkedin,          icon: <FiLinkedin size={12} />,  external: true  },
                       { label: 'Resume',    href: meta.resumeUrl,         icon: <FiExternalLink size={12}/>,external: true  },
@@ -318,7 +318,7 @@ export function Contact() {
                     }}
                   >
                     {copied ? <FiCheck size={13} /> : <FiCopy size={13} />}
-                    {copied ? 'Email Copied!' : 'Copy Email'}
+                    {copied ? 'Email Copied!' : 'Copy Gmail'}
                   </button>
 
                   <div>
