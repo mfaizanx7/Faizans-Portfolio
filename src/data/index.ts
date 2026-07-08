@@ -201,10 +201,10 @@ Media upload pipeline (Intervention Image):
     whatIBuilt: [
       'Designed the full normalized database schema — separating shared product attributes from variant-specific data to eliminate duplication',
       'Built a product catalog supporting multiple variants per product (size, finish, price, stock status)',
-      'Implemented a variant management system allowing independent pricing and stock control per combination',
+      'Implemented a product variant engine supporting independent pricing, stock management, and multiple size/finish combinations.',
       'Implemented a many-to-many category system so products can appear in multiple categories without data duplication',
       'Developed a custom admin panel allowing non-technical staff to manage products, categories, variants, and pricing independently',
-      'Built the public-facing business website with product browsing and category filtering',
+      'Built a responsive business website with product browsing, category filtering, and dynamic product pages powered by the CMS.',
     ],
     technicalApproach: `Schema designed on paper before any code:
 
@@ -229,6 +229,7 @@ Result: updating a product description is one UPDATE — not one per variant. Ca
       { label: 'Database Design', detail: 'Normalized Schema' },
       { label: 'Variant Engine', detail: 'One Product · Multiple Variants' },
       { label: 'Admin Platform', detail: 'Products · Categories · Pricing' },
+      { label: 'Catalog Engine', detail: 'Dynamic Filtering' },
     ],
     stack: ['Laravel', 'PHP', 'MySQL', 'Blade', 'Bootstrap'],
     images: [
@@ -244,18 +245,18 @@ Result: updating a product description is one UPDATE — not one per variant. Ca
     number: '04',
     title: 'PomPak Financial Literacy Platform',
     category: 'National Education Platform',
-    status: 'Internal',
+    status: 'Production',
     description: 'Supported backend development for a national financial literacy platform by implementing production fixes, feature enhancements, and SQL Server–based workflows used in a live educational system.',
-    tagline: 'Backend support on a live Laravel + SQL Server application for a government financial institution — bug fixes, feature enhancements, and learning a new database driver under real constraints.',
+    tagline: 'Contributed to the backend of a production Laravel application for a national financial literacy platform, delivering bug fixes, feature enhancements, and SQL Server–based improvements within an enterprise development workflow.',
     taglineShort: 'Production Backend · SQL Server',
     context: 'NIBAF Pakistan · Internal platform · Laravel + SQL Server',
-    problem: 'The platform had accumulated bugs and pending feature requests. The codebase used SQL Server instead of MySQL — a different driver with different behaviour in Laravel\'s query builder, date functions, and migration syntax.',
-    myRole: 'Reproduced and fixed reported bugs, implemented small feature enhancements, and tested modules across the application. Collaborated with senior developers on more complex tasks. Had to adapt quickly to SQL Server inside Laravel — a combination I hadn\'t worked with before.',
+    problem: 'PomPak is a live financial literacy platform operated by NIBAF Pakistan, a government financial institution. The platform was in active use and required ongoing maintenance — accumulated bug reports, pending feature requests, and production stability work. The codebase used SQL Server rather than MySQL, introducing driver-specific differences in query syntax, date functions, and migration behaviour that required careful adaptation.',
+    myRole: 'Contributed to production maintenance by resolving backend issues, implementing feature enhancements, validating application behaviour, and collaborating with senior developers while adapting Laravel development to SQL Server–based workflows.',
     whatIBuilt: [
       'Reproduced and resolved reported backend bugs across the Laravel application',
       'Implemented feature enhancements requested by the platform team',
       'Tested application modules and verified fixes against original bug reports and edge cases',
-      'Worked with SQL Server inside Laravel — adapting to driver-specific syntax differences from MySQL',
+      'Adapted Laravel queries and migrations to SQL Server driver–specific syntax and behaviour',
       'Collaborated with senior developers on more complex development tasks',
     ],
     technicalApproach: `Laravel with the sqlsrv driver. Key differences from MySQL I had to learn fast:
@@ -274,13 +275,18 @@ Debugging workflow I followed on every bug:
     keyFeatures: [],
     challenges: [
       {
-        title: 'SQL Server inside Laravel — different rules',
+        title: 'Adapting Laravel Development to SQL Server',
         description: 'The project used SQL Server rather than MySQL. Some query builder methods and Eloquent behaviours differ between drivers, and date/time functions required SQL Server-specific syntax that doesn\'t work in MySQL.',
-        solution: 'Reviewed the Laravel SQL Server driver documentation before touching any query. Used raw DB::select() for SQL Server-specific functions. Tested every query in isolation before integrating. Stopped assuming MySQL behaviour applied.',
+        solution: 'Reviewed SQL Server driver documentation before modifying any queries. Used SQL Server–specific syntax where required, validated queries independently before integration, and tested each change against the original bug report and edge cases before submitting for review.',
       },
     ],
-    takeaways: 'Supporting a production codebase mid-development is a different discipline from building from scratch. The priority is always: understand the intent, make the smallest change, verify it works, move on.',
+    takeaways: 'This project strengthened my understanding of maintaining production software, working within established codebases, and making safe, incremental improvements under real development workflows.',
     whereItBreaksDown: '',
+    engineeringHighlights: [
+      { label: 'Production Support', detail: 'Bug Fixes · Feature Enhancements' },
+      { label: 'SQL Server', detail: 'Driver Adaptation · Query Validation' },
+      { label: 'Enterprise Workflow', detail: 'Testing · Collaboration' },
+    ],
     stack: ['Laravel', 'PHP', 'SQL Server', 'Git'],
     images: [
       '/images/pompak/Screenshot 2026-07-06 161112.png',
