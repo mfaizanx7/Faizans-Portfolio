@@ -1,6 +1,6 @@
 import { useState, useId } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload, FiChevronDown } from 'react-icons/fi'
 import emailjs from '@emailjs/browser'
 import { FadeIn } from '@/components/ui'
 import { meta } from '@/data'
@@ -109,6 +109,7 @@ export function Contact() {
   const [touched, setTouched] = useState<Partial<Record<keyof FormState, boolean>>>({})
   const [sending, setSending] = useState(false)
   const [sent, setSent]       = useState(false)
+  const [resumeOpen, setResumeOpen] = useState(false)
 
   function handleChange(field: keyof FormState, value: string) {
     const next = { ...form, [field]: value }
@@ -320,36 +321,87 @@ export function Contact() {
                     {copied ? 'Email Copied!' : 'Copy Email'}
                   </button>
 
-                  <a
-                    href={meta.resumeUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    style={{
-                      display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                      padding: '0.65rem 1rem',
-                      fontSize: 'var(--text-sm)', fontWeight: 500,
-                      color: 'rgba(255,255,255,0.45)',
-                      background: 'transparent',
-                      border: '1px solid rgba(255,255,255,0.08)',
-                      borderRadius: 'var(--radius-lg)',
-                      fontFamily: 'inherit',
-                      transition: 'color 150ms ease, border-color 150ms ease, background 150ms ease',
-                      textDecoration: 'none',
-                    }}
-                    onMouseEnter={e => {
-                      e.currentTarget.style.color = 'var(--color-text)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.07)'
-                    }}
-                    onMouseLeave={e => {
-                      e.currentTarget.style.color = 'rgba(255,255,255,0.45)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
-                      e.currentTarget.style.background = 'transparent'
-                    }}
-                  >
-                    <FiDownload size={13} />
-                    Download Resume
-                  </a>
+                  <div>
+                    <button
+                      onClick={() => setResumeOpen(p => !p)}
+                      style={{
+                        display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                        padding: '0.65rem 1rem',
+                        fontSize: 'var(--text-sm)', fontWeight: 500,
+                        color: 'rgba(255,255,255,0.45)',
+                        background: 'transparent',
+                        border: '1px solid rgba(255,255,255,0.08)',
+                        borderRadius: 'var(--radius-lg)',
+                        cursor: 'pointer', fontFamily: 'inherit',
+                        transition: 'color 150ms ease, border-color 150ms ease, background 150ms ease',
+                        width: '100%',
+                      }}
+                      onMouseEnter={e => {
+                        e.currentTarget.style.color = 'var(--color-text)'
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.07)'
+                      }}
+                      onMouseLeave={e => {
+                        e.currentTarget.style.color = 'rgba(255,255,255,0.45)'
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
+                        e.currentTarget.style.background = 'transparent'
+                      }}
+                    >
+                      <FiDownload size={13} />
+                      Download Resume
+                      <FiChevronDown size={13} style={{ marginLeft: 'auto', transition: 'transform 200ms', transform: resumeOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+                    </button>
+
+                    <AnimatePresence>
+                      {resumeOpen && (
+                        <motion.div
+                          initial={{ opacity: 0, height: 0 }}
+                          animate={{ opacity: 1, height: 'auto' }}
+                          exit={{ opacity: 0, height: 0 }}
+                          transition={{ duration: 0.18 }}
+                          style={{ overflow: 'hidden', marginTop: '0.375rem' }}
+                        >
+                          <div style={{
+                            background: 'rgba(255,255,255,0.03)',
+                            border: '1px solid rgba(255,255,255,0.09)',
+                            borderRadius: 'var(--radius-lg)',
+                            overflow: 'hidden',
+                          }}>
+                            {[
+                              { label: 'Download PDF',  href: meta.resumeUrl,                filename: 'M-Faizan-Khan-Resume.pdf'  },
+                              { label: 'Download DOCX', href: '/resume/M Faizan Khan.docx',  filename: 'M-Faizan-Khan-Resume.docx' },
+                            ].map((opt, i) => (
+                              <a
+                                key={opt.label}
+                                href={opt.href}
+                                download={opt.filename}
+                                onClick={() => setResumeOpen(false)}
+                                style={{
+                                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                  padding: '0.6rem 1rem',
+                                  fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.5)',
+                                  textDecoration: 'none',
+                                  borderTop: i > 0 ? '1px solid rgba(255,255,255,0.06)' : 'none',
+                                  transition: 'background 150ms, color 150ms',
+                                }}
+                                onMouseEnter={e => {
+                                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)'
+                                  e.currentTarget.style.color = 'var(--color-text)'
+                                }}
+                                onMouseLeave={e => {
+                                  e.currentTarget.style.background = 'transparent'
+                                  e.currentTarget.style.color = 'rgba(255,255,255,0.5)'
+                                }}
+                              >
+                                <FiDownload size={12} />
+                                {opt.label}
+                              </a>
+                            ))}
+                          </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
+                  </div>
                 </div>
 
               </div>
