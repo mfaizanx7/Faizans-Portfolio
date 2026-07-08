@@ -335,7 +335,7 @@ export function Contact() {
                         borderRadius: 'var(--radius-lg)',
                         cursor: 'pointer', fontFamily: 'inherit',
                         transition: 'color 150ms ease, border-color 150ms ease, background 150ms ease',
-                        width: '100%', justifyContent: 'center',
+                        width: '100%',
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.color = 'var(--color-text)'
