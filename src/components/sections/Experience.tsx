@@ -8,17 +8,17 @@ const EXPERIENCES = [
     role: 'Web Developer Intern',
     period: 'Apr 2026 – Jul 2026',
     location: 'Islamabad, Pakistan',
-    summary: 'Worked across three production applications for real clients — CMS development, Laravel to React.js migration, backend modules, and live deployments.',
+    summary: 'Delivered production-ready web applications for real clients, including a Laravel-to-React migration, custom CMS platforms, backend development, and production deployments.',
     projects: [
       { label: 'Creative IT Website', slug: 'creative-it-park-website' },
-      { label: 'OD Sports',      slug: 'odsports-cms'          },
-      { label: 'Perfect Doors',  slug: 'perfect-doors-cms'     },
+      { label: 'OD Sports',           slug: 'odsports-cms'            },
+      { label: 'Perfect Doors',       slug: 'perfect-doors-cms'       },
     ],
     highlights: [
-      'Laravel to React + Node.js migration',
-      'CMS modules for content, media & products',
-      'Production deployments — cPanel, SSL, DNS',
-      'Client-requested feature development',
+      'Laravel → React migration',
+      'Custom CMS platforms',
+      'Production deployments (cPanel, SSL, DNS)',
+      'Production feature development',
     ],
   },
   {
@@ -26,14 +26,14 @@ const EXPERIENCES = [
     role: 'Web Developer Intern',
     period: 'Jan 2026 – Feb 2026',
     location: 'Islamabad, Pakistan',
-    summary: 'Supported backend development on the PomPak financial literacy platform.',
+    summary: 'Supported production backend development for Pakistan’s PomPak financial literacy platform, contributing bug fixes, feature enhancements, and SQL Server–based application workflows.',
     projects: [
       { label: 'PomPak Financial Literacy Platform', slug: 'pompak-financial-literacy' },
     ],
     highlights: [
-      'Laravel + SQL Server backend support',
+      'Laravel + SQL Server development',
       'Bug fixes and feature enhancements',
-      'Collaborative workflow with senior developers',
+      'Enterprise development workflow',
     ],
   },
 ]
@@ -93,7 +93,7 @@ export function Experience() {
               fontWeight: 700, letterSpacing: '-0.04em',
               color: 'var(--color-text)', lineHeight: 1.1,
             }}>
-              Where I've worked
+              Professional Experience
             </h2>
           </div>
         </FadeIn>
@@ -186,7 +186,7 @@ export function Experience() {
                           letterSpacing: '0.07em', textTransform: 'uppercase',
                           color: 'rgba(255,255,255,0.22)', marginBottom: '0.5rem',
                         }}>
-                          Projects
+                          Key Projects
                         </p>
                         <div style={{ display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
                           {exp.projects.map(p => (
