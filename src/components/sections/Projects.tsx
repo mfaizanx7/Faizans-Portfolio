@@ -214,10 +214,36 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           <p style={{
             fontSize: 'var(--text-xs)', fontWeight: 500,
             color: 'var(--color-accent)', letterSpacing: '0.06em',
-            textTransform: 'uppercase', marginBottom: '0.375rem',
+            textTransform: 'uppercase', marginBottom: '0.2rem',
+            display: 'flex', alignItems: 'center', gap: '0.5rem',
           }}>
             {project.category}
+            {project.slug === 'pompak-financial-literacy' && (
+              <span style={{
+                fontSize: '9px', fontWeight: 600,
+                letterSpacing: '0.07em', textTransform: 'uppercase',
+                color: '#34D399',
+                background: 'rgba(52,211,153,0.08)',
+                border: '1px solid rgba(52,211,153,0.2)',
+                borderRadius: 4,
+                padding: '1px 6px',
+              }}>
+                National Platform
+              </span>
+            )}
           </p>
+
+          {/* ── Specialization line ── */}
+          {project.taglineShort && (
+            <p style={{
+              fontSize: '10px', fontWeight: 500,
+              color: 'rgba(255,255,255,0.28)',
+              letterSpacing: '0.04em',
+              marginBottom: '0.625rem',
+            }}>
+              {project.taglineShort}
+            </p>
+          )}
 
           {/* ── Title ── */}
           <h3 style={{
@@ -385,10 +411,10 @@ export function Projects() {
                 lineHeight: 1.1, marginBottom: '0.875rem',
               }}
             >
-              Selected Engineering Work
+              Selected Client Projects
             </h2>
             <p style={{ fontSize: 'var(--text-base)', lineHeight: 1.75, color: 'var(--color-muted)' }}>
-              Real client work focused on backend engineering, CMS platforms, REST APIs, and production-ready software.
+              Production-ready web applications, CMS platforms, REST APIs, and business systems built for real clients.
             </p>
           </div>
         </FadeIn>

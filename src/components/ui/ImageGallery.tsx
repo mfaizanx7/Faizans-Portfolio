@@ -13,7 +13,7 @@ interface ImageGalleryProps {
 const EASE = [0.16, 1, 0.3, 1] as const
 
 /* ── Fullscreen modal — used both standalone and inline ── */
-function GalleryModal({ images, projectTitle, startIdx, onClose }: {
+export function GalleryModal({ images, projectTitle, startIdx, onClose }: {
   images: string[]
   projectTitle: string
   startIdx: number

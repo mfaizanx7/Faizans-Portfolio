@@ -10,12 +10,15 @@ export interface Project {
   number: string
   title: string
   category: string
-  status: string       // e.g. 'Completed' | 'Production' | 'Internal'
+  status: string
   description: string
   tagline: string
+  taglineShort?: string
   context: string
   problem: string
   myRole: string
+  whatIBuilt?: string[]
+  engineeringHighlights?: { label: string; detail: string }[]
   technicalApproach: string
   keyFeatures?: unknown[]
   whereItBreaksDown?: string

@@ -82,13 +82,22 @@ export const projects: Project[] = [
     slug: 'creative-it-park-website',
     number: '01',
     title: 'Creative IT Park Website',
-    category: 'Company Website & CMS',
+    category: 'Corporate Platform',
     status: 'Production',
-    description: 'Company website and CMS rebuilt for managing content, pages, and admin workflows.',
-    tagline: 'Laravel-powered company website with a custom admin panel, contact form pipeline, and a first production deployment I debugged and shipped myself.',
+    description: 'Led the migration of the corporate website from Laravel to a modern React + Node.js stack, delivering a custom admin panel and the company\'s first production deployment workflow.',
+    tagline: 'Corporate website rebuilt from Laravel to a modern React.js and Node.js stack, featuring a custom admin panel, production-ready contact workflow, and a complete deployment pipeline.',
+    taglineShort: 'React Migration · Production Deployment',
     context: 'Creative IT Park · Live production · Laravel + React + Node.js',
-    problem: 'The old site was static, not mobile-responsive, and required a developer to change any content. The team needed to manage services, team members, and contact inquiries without touching code.',
-    myRole: 'Built the entire Laravel backend from scratch — admin panel, contact form handling, email notifications via Laravel Mail, and Eloquent-based content management. Also contributed to the Blade frontend and owned the first production deployment end-to-end, including debugging a PHP version mismatch that broke the initial deploy.',
+    problem: 'The existing website was difficult to maintain, lacked responsive design, and required developer involvement for content updates. The project modernized the platform with a scalable architecture and a custom administration system that enabled non-technical staff to manage content independently.',
+    myRole: 'Led the migration of the corporate platform while developing backend modules, administration features, content management, contact workflow, and coordinating the first successful production deployment.',
+    whatIBuilt: [
+      'Migrated the corporate website from a static Laravel/Blade setup to a React.js frontend with a Node.js backend',
+      'Built a custom admin panel for managing services, team members, and contact inquiries',
+      'Implemented Eloquent-based content management with clean public/admin route separation',
+      'Developed contact form handling with database storage and SMTP email notifications via Laravel Mail',
+      'Coordinated the full production deployment — cPanel setup, SSL configuration, DNS, and environment management',
+      'Diagnosed and resolved a PHP 7.4 vs 8.1 version mismatch that caused silent failures on the production server',
+    ],
     technicalApproach: `Laravel + Blade MVC. Admin panel uses Laravel Auth middleware — no third-party package. Contact submissions stored in DB and trigger SMTP email via Laravel Mail.
 
 Content managed through Eloquent resource controllers with custom Blade views. Clean separation: public routes vs. admin routes, each with their own middleware group.
@@ -105,9 +114,14 @@ Deployment issue I hit and fixed:
         solution: 'Audited every file for 8.x-only syntax, replaced with 7.4-compatible equivalents. Fixed storage/bootstrap/cache permissions. Wrote a deploy checklist covering environment, permissions, migrations, and config caching — still use it today.',
       },
     ],
-    takeaways: 'Production is a different environment. I now verify PHP version, permissions, and env config before writing a single line of application code on any new project.',
+    takeaways: 'This project strengthened my understanding of production deployments, environment management, and building maintainable CMS platforms that can be operated by non-technical teams.',
     whereItBreaksDown: '',
-    stack: ['Laravel', 'PHP', 'MySQL', 'React.js', 'Node.js', 'Express.js', 'REST APIs', 'Git', 'cPanel'],
+    engineeringHighlights: [
+      { label: 'Migration', detail: 'Laravel → React + Node.js' },
+      { label: 'Deployment', detail: 'cPanel · SSL · DNS' },
+      { label: 'Admin System', detail: 'Custom CMS' },
+    ],
+    stack: ['Laravel', 'React.js', 'Node.js', 'MySQL', 'PHP'],
     images: [
       '/images/creativeitpark/Screenshot 2026-07-05 200818.png',
       '/images/creativeitpark/Screenshot 2026-07-06 162521.png',
@@ -120,13 +134,22 @@ Deployment issue I hit and fixed:
     slug: 'odsports-cms',
     number: '02',
     title: 'OD Sports',
-    category: 'Sports Media Platform',
+    category: 'Sports Platform',
     status: 'Completed',
-    description: 'Sports media CMS for managing content, events, and editorial workflows.',
+    description: 'Designed and developed a production CMS enabling editors to publish articles, schedule content, automate media processing, and manage sports content without developer involvement.',
     tagline: 'CMS module added to a live Laravel application — article scheduling, multi-size image processing, and an editorial workflow built without touching existing functionality.',
+    taglineShort: 'Custom CMS · Editorial Workflow',
     context: 'Creative IT Park · Client project · Existing Laravel codebase',
     problem: 'All content was being inserted directly via database queries. The editorial team had no interface — every article, match result, or player profile required a developer. The existing codebase had no CMS layer at all.',
     myRole: 'Added the full CMS layer to a codebase I didn\'t write. Article management with draft/scheduled/published states, a media upload pipeline that generates three image sizes on upload, and a scheduled Artisan command that auto-publishes content. Did this without breaking any existing functionality.',
+    whatIBuilt: [
+      'Designed and built a full CMS layer on top of an existing live Laravel application',
+      'Implemented article management with draft, scheduled, and published workflow states',
+      'Built a media upload pipeline using Intervention Image — generating thumbnail, medium, and full-size variants on upload',
+      'Created a scheduled Artisan command that auto-publishes content when the scheduled time is reached',
+      'Built an editorial admin panel allowing the client team to manage all content without developer involvement',
+      'Extended the codebase without modifying or breaking any existing functionality',
+    ],
     technicalApproach: `First step before writing any code: traced one complete request through the application — route → middleware → controller → model → response. That trace revealed the conventions, patterns, and structure I needed to match.
 
 Content scheduling:
@@ -149,7 +172,7 @@ Media upload pipeline (Intervention Image):
     ],
     takeaways: 'The fastest way to understand an existing codebase is to follow one complete request from route to response. Everything else — models, helpers, service classes — makes sense once you understand the flow.',
     whereItBreaksDown: '',
-    stack: ['Laravel', 'PHP', 'MySQL', 'Blade', 'jQuery', 'Bootstrap', 'Intervention Image', 'Git'],
+    stack: ['Laravel', 'PHP', 'MySQL', 'Blade', 'Bootstrap'],
     images: [
       '/images/odsports/Screenshot 2026-07-06 155343.png',
       '/images/odsports/Screenshot 2026-07-06 161942.png',
@@ -162,13 +185,21 @@ Media upload pipeline (Intervention Image):
     slug: 'perfect-doors-cms',
     number: '03',
     title: 'Perfect Doors Website',
-    category: 'Business Website',
+    category: 'Business Platform',
     status: 'Completed',
-    description: 'Business website and CMS for managing products, categories, and website content.',
+    description: 'Designed and developed a product catalog website and custom CMS for a door manufacturer, allowing non-technical staff to manage products, variants, pricing, and website content independently.',
     tagline: 'Laravel product catalog with a normalised variant schema — designed on paper first, built to eliminate data duplication across product variants.',
+    taglineShort: 'Product Catalog · Variant Schema',
     context: 'Creative IT Park · Client project · Laravel + Blade',
     problem: 'Every price update or new variant required emailing a developer to touch the database. A door available in 5 sizes and 3 finishes meant 15 rows of duplicated data under the naive approach.',
     myRole: 'Built the backend and admin interface from scratch. Designed the database schema before opening a code editor — the key decision was separating shared product attributes from variable ones, which made bulk updates single operations instead of 15.',
+    whatIBuilt: [
+      'Designed the full database schema — separating shared product attributes from variant-specific data to eliminate duplication',
+      'Built a product catalog supporting multiple variants per product (size, finish, price, stock status)',
+      'Developed a custom admin panel allowing non-technical staff to manage products, categories, variants, and pricing independently',
+      'Implemented a many-to-many category system so products can appear in multiple categories without data duplication',
+      'Built the public-facing business website with product browsing and category filtering',
+    ],
     technicalApproach: `Schema designed on paper before any code:
 
   products          id, name, description, category_id
@@ -188,7 +219,7 @@ Result: updating a product description is one UPDATE — not one per variant. Ca
     ],
     takeaways: 'Ten minutes of schema design on paper is worth hours of migration rewrites. I now treat the data model as the first deliverable on any project, not an afterthought.',
     whereItBreaksDown: '',
-    stack: ['Laravel', 'PHP', 'MySQL', 'Blade', 'Bootstrap', 'Git'],
+    stack: ['Laravel', 'PHP', 'MySQL', 'Blade', 'Bootstrap'],
     images: [
       '/images/perfectdoors/Screenshot 2026-07-05 203100.png',
       '/images/perfectdoors/Screenshot 2026-07-06 221644.png',
@@ -201,13 +232,21 @@ Result: updating a product description is one UPDATE — not one per variant. Ca
     slug: 'pompak-financial-literacy',
     number: '04',
     title: 'PomPak Financial Literacy Platform',
-    category: 'EdTech / Financial Education',
+    category: 'National Education Platform',
     status: 'Internal',
-    description: 'Financial literacy learning platform supported with backend fixes and feature enhancements.',
+    description: 'Supported backend development for a national financial literacy platform by implementing production fixes, feature enhancements, and SQL Server–based workflows used in a live educational system.',
     tagline: 'Backend support on a live Laravel + SQL Server application for a government financial institution — bug fixes, feature enhancements, and learning a new database driver under real constraints.',
+    taglineShort: 'Production Backend · SQL Server',
     context: 'NIBAF Pakistan · Internal platform · Laravel + SQL Server',
     problem: 'The platform had accumulated bugs and pending feature requests. The codebase used SQL Server instead of MySQL — a different driver with different behaviour in Laravel\'s query builder, date functions, and migration syntax.',
     myRole: 'Reproduced and fixed reported bugs, implemented small feature enhancements, and tested modules across the application. Collaborated with senior developers on more complex tasks. Had to adapt quickly to SQL Server inside Laravel — a combination I hadn\'t worked with before.',
+    whatIBuilt: [
+      'Reproduced and resolved reported backend bugs across the Laravel application',
+      'Implemented feature enhancements requested by the platform team',
+      'Tested application modules and verified fixes against original bug reports and edge cases',
+      'Worked with SQL Server inside Laravel — adapting to driver-specific syntax differences from MySQL',
+      'Collaborated with senior developers on more complex development tasks',
+    ],
     technicalApproach: `Laravel with the sqlsrv driver. Key differences from MySQL I had to learn fast:
 
   - Date functions differ: GETDATE() vs NOW(), DATEADD() vs DATE_ADD()
@@ -239,6 +278,7 @@ Debugging workflow I followed on every bug:
       '/images/pompak/Screenshot 2026-07-06 162340.png',
     ],
     liveUrl: 'https://nflpy.pk/elearning',
+    githubUrl: 'https://github.com/mfaizanx7/pompak-showcase',
   },
 ]
 
