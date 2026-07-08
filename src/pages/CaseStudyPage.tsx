@@ -245,7 +245,7 @@ function ChallengeCard({ title, description, solution }: {
       borderRadius: 'var(--radius-xl)',
       overflow: 'hidden',
     }}>
-      <div style={{ padding: '1.375rem 1.5rem', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
+      <div style={{ padding: '1.75rem 1.75rem', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <p style={{
           fontSize: 'var(--text-xs)', fontWeight: 600,
           color: 'rgba(239,68,68,0.7)',
@@ -268,7 +268,7 @@ function ChallengeCard({ title, description, solution }: {
           {description}
         </p>
       </div>
-      <div style={{ padding: '1.375rem 1.5rem', background: 'rgba(59,130,246,0.03)' }}>
+      <div style={{ padding: '1.75rem 1.75rem', background: 'rgba(59,130,246,0.03)' }}>
         <p style={{
           fontSize: 'var(--text-xs)', fontWeight: 600,
           color: 'var(--color-accent)',
@@ -550,7 +550,7 @@ export function CaseStudyPage() {
 
         {/* ── Gallery ── */}
         {project.images.length > 0 && (
-          <div style={{ marginBottom: '0.5rem' }}>
+          <div style={{ marginBottom: '0.5rem', marginTop: '-0.75rem' }}>
             <CaseGallery images={project.images} title={project.title} />
           </div>
         )}
