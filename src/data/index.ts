@@ -58,22 +58,22 @@ export const stackGroups: StackGroup[] = [
   {
     label: 'Backend Engineering',
     color: '#3B82F6',
-    skills: ['Laravel', 'PHP', 'Node.js', 'Express.js', 'REST APIs', 'Laravel Sanctum', 'JWT', 'MVC Architecture'],
+    skills: ['Laravel', 'PHP', 'Node.js', 'Express.js', 'REST APIs', 'MVC Architecture', 'Eloquent ORM', 'Laravel Sanctum', 'JWT', 'RBAC'],
   },
   {
-    label: 'Frontend Integration',
+    label: 'Frontend Development',
     color: '#A78BFA',
-    skills: ['React.js', 'JavaScript', 'Blade', 'Bootstrap', 'HTML', 'CSS', 'Responsive UI'],
+    skills: ['React.js', 'Redux', 'TypeScript', 'Vite', 'JavaScript', 'HTML5', 'CSS3', 'Bootstrap', 'Responsive Web Design'],
   },
   {
     label: 'Data Layer',
     color: '#34D399',
-    skills: ['MySQL', 'SQL Server', 'Eloquent ORM', 'Database Design', 'Stored Procedures', 'PostgreSQL', 'MongoDB'],
+    skills: ['MySQL', 'SQL Server', 'PostgreSQL', 'MongoDB', 'Stored Procedures', 'Query Optimization', 'Database Design'],
   },
   {
     label: 'Tools & Deployment',
     color: '#F59E0B',
-    skills: ['Git', 'GitHub', 'Docker', 'Postman', 'Composer', 'cPanel', 'Linux CLI', 'SSL', 'DNS'],
+    skills: ['Git', 'GitHub', 'Postman', 'VS Code', 'Composer', 'npm', 'Docker', 'Linux', 'AWS EC2', 'cPanel', 'GitHub Actions', 'DNS', 'SSL'],
   },
 ]
 

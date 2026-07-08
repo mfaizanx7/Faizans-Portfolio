@@ -1,15 +1,10 @@
 import { FadeIn } from '@/components/ui'
 import { stackGroups } from '@/data'
 
-const ABOUT_PARAGRAPHS = [
-  'I build web applications that connect reliable backend logic with usable interfaces. My work focuses on CMS platforms, REST APIs, admin panels, business applications, and full-stack web systems.',
-  'I work mainly with Laravel, PHP, MySQL, React.js, Node.js, and modern web development practices. I care about writing clean, maintainable code that is easy to understand, extend, and hand over.',
-]
-
-const INFO_ROWS = [
-  { label: 'Based in',  value: 'Islamabad, Pakistan' },
-  { label: 'Focus',     value: 'Laravel · React · REST APIs' },
-  { label: 'Available', value: 'Open to full-time roles' },
+const CAPABILITY_BULLETS = [
+  'Backend-first thinking',
+  'Frontend integration',
+  'Production deployment',
 ]
 
 export function AboutSkills() {
@@ -28,13 +23,13 @@ export function AboutSkills() {
                 lineHeight: 1.1, marginBottom: '0.75rem',
               }}
             >
-              Craft & Stack
+              Technical Capabilities
             </h2>
             <p style={{
               fontSize: 'var(--text-base)', lineHeight: 1.75,
               color: 'var(--color-muted)', maxWidth: 540,
             }}>
-              A full-stack web developer focused on building practical, maintainable, and production-ready web applications.
+              Core tools and technologies I use to build full-stack web applications, CMS platforms, REST APIs, and production-ready systems.
             </p>
           </div>
         </FadeIn>
@@ -42,37 +37,32 @@ export function AboutSkills() {
         {/* ── 50 / 50 layout ── */}
         <div className="as-grid">
 
-          {/* ── Left — About ── */}
+          {/* ── Left — Capability Summary ── */}
           <FadeIn direction="up">
             <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
-              {ABOUT_PARAGRAPHS.map((text, i) => (
-                <p key={i} style={{
-                  fontSize: 'var(--text-base)', lineHeight: 1.85,
-                  color: i === 0 ? 'var(--color-text)' : 'var(--color-muted)',
-                  fontWeight: i === 0 ? 500 : 400,
-                  letterSpacing: '-0.01em',
-                }}>
-                  {text}
-                </p>
-              ))}
-
-              <div style={{
-                marginTop: '0.5rem',
-                paddingTop: '1.5rem',
-                borderTop: '1px solid rgba(255,255,255,0.07)',
-                display: 'flex', flexDirection: 'column', gap: '0.75rem',
+              <p style={{
+                fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', fontWeight: 600,
+                color: 'var(--color-text)', letterSpacing: '-0.03em', lineHeight: 1.3,
               }}>
-                {INFO_ROWS.map(item => (
-                  <div key={item.label} style={{ display: 'flex', gap: '1rem', alignItems: 'baseline' }}>
-                    <span style={{
-                      fontSize: 'var(--text-xs)', fontWeight: 600,
-                      letterSpacing: '0.07em', textTransform: 'uppercase',
-                      color: 'rgba(255,255,255,0.22)', flexShrink: 0, width: 76,
-                    }}>
-                      {item.label}
-                    </span>
+                Full-stack delivery with a backend foundation.
+              </p>
+              <p style={{
+                fontSize: 'var(--text-base)', lineHeight: 1.85,
+                color: 'var(--color-muted)', letterSpacing: '-0.01em',
+              }}>
+                I build web applications using Laravel, React, PHP, MySQL, Node.js, and REST APIs — from database design and backend logic to frontend integration and production deployment.
+              </p>
+              <div style={{
+                marginTop: '0.25rem',
+                paddingTop: '1.25rem',
+                borderTop: '1px solid rgba(255,255,255,0.07)',
+                display: 'flex', flexDirection: 'column', gap: '0.6rem',
+              }}>
+                {CAPABILITY_BULLETS.map(item => (
+                  <div key={item} style={{ display: 'flex', gap: '0.6rem', alignItems: 'center' }}>
+                    <span style={{ color: 'rgba(59,130,246,0.7)', fontSize: 10, flexShrink: 0 }}>•</span>
                     <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-muted)', letterSpacing: '-0.01em' }}>
-                      {item.value}
+                      {item}
                     </span>
                   </div>
                 ))}
