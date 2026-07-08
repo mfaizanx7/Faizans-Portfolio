@@ -1,4 +1,4 @@
-import { FiGithub, FiLinkedin, FiMail, FiExternalLink } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
 import { FaWhatsapp } from 'react-icons/fa'
 import { meta, navItems } from '@/data'
 
@@ -7,7 +7,6 @@ const connectLinks = [
   { label: 'LinkedIn', href: meta.linkedin,          icon: <FiLinkedin size={13} />,    external: true  },
   { label: 'WhatsApp', href: 'https://wa.me/923430559742', icon: <FaWhatsapp size={13} />, external: true },
   { label: 'Email',    href: `mailto:${meta.email}`, icon: <FiMail size={13} />,        external: false },
-  { label: 'Resume',   href: meta.resumeUrl,         icon: <FiExternalLink size={13} />,external: true  },
 ]
 
 export function Footer() {
@@ -98,21 +97,7 @@ export function Footer() {
         </div>
 
         {/* ── Bottom bar ── */}
-        <div style={{
-          marginTop: '2.5rem',
-          paddingTop: '1.25rem',
-          borderTop: '1px solid rgba(255,255,255,0.05)',
-          display: 'flex', flexWrap: 'wrap',
-          alignItems: 'center', justifyContent: 'space-between',
-          gap: '0.5rem',
-        }}>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', letterSpacing: '0.01em' }}>
-            © 2026 Muhammad Faizan Khan
-          </p>
-          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.18)', letterSpacing: '0.01em' }}>
-            Built with React, TypeScript & Vite.
-          </p>
-        </div>
+        <div style={{ marginTop: '2.5rem', paddingTop: '1.25rem', borderTop: '1px solid rgba(255,255,255,0.05)' }} />
 
       </div>
 
