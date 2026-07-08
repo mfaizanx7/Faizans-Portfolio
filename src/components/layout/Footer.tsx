@@ -1,12 +1,12 @@
-import { FiGithub, FiLinkedin, FiMail } from 'react-icons/fi'
-import { FaWhatsapp } from 'react-icons/fa'
+import { FaWhatsapp, FaGithub, FaLinkedin } from 'react-icons/fa'
+import { SiGmail } from 'react-icons/si'
 import { meta, navItems } from '@/data'
 
 const connectLinks = [
-  { label: 'GitHub',   href: meta.github,            icon: <FiGithub size={13} />,      external: true  },
-  { label: 'LinkedIn', href: meta.linkedin,          icon: <FiLinkedin size={13} />,    external: true  },
-  { label: 'WhatsApp', href: 'https://wa.me/923430559742', icon: <FaWhatsapp size={13} />, external: true },
-  { label: 'Email',    href: `mailto:${meta.email}`, icon: <FiMail size={13} />,        external: false },
+  { label: 'GitHub',   href: meta.github,                   icon: <FaGithub size={13} style={{ color: '#e6edf3' }} />,   external: true  },
+  { label: 'LinkedIn', href: meta.linkedin,                 icon: <FaLinkedin size={13} style={{ color: '#0A66C2' }} />, external: true  },
+  { label: 'WhatsApp', href: 'https://wa.me/923430559742',  icon: <FaWhatsapp size={13} style={{ color: '#25D366' }} />, external: true  },
+  { label: 'Gmail',    href: `mailto:${meta.email}`,        icon: <SiGmail size={13} style={{ color: '#EA4335' }} />,    external: false },
 ]
 
 export function Footer() {
@@ -87,7 +87,7 @@ export function Footer() {
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
                   onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
                 >
-                  <span style={{ color: 'rgba(255,255,255,0.28)', flexShrink: 0 }}>{l.icon}</span>
+                  <span style={{ flexShrink: 0 }}>{l.icon}</span>
                   {l.label}
                 </a>
               ))}

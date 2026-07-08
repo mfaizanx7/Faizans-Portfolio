@@ -1,6 +1,7 @@
 import { useState, useId } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload, FiChevronDown } from 'react-icons/fi'
+import { SiGmail } from 'react-icons/si'
 import emailjs from '@emailjs/browser'
 import { FadeIn } from '@/components/ui'
 import { meta } from '@/data'
@@ -272,7 +273,7 @@ export function Contact() {
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                     {[
-                      { label: 'Gmail',     href: `mailto:${meta.email}`, icon: null,                      external: false },
+                      { label: 'Gmail',     href: `mailto:${meta.email}`, icon: <SiGmail size={12} />, external: false },
                       { label: 'GitHub',    href: meta.github,            icon: <FiGithub size={12} />,    external: true  },
                       { label: 'LinkedIn',  href: meta.linkedin,          icon: <FiLinkedin size={12} />,  external: true  },
                       { label: 'Resume',    href: meta.resumeUrl,         icon: <FiExternalLink size={12}/>,external: true  },
@@ -291,7 +292,7 @@ export function Contact() {
                         onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
                         onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
                       >
-                        {link.icon && <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>{link.icon}</span>}
+                        {link.icon && <span style={{ flexShrink: 0 }}>{link.icon}</span>}
                         {link.label}
                       </a>
                     ))}
@@ -334,7 +335,7 @@ export function Contact() {
                         borderRadius: 'var(--radius-lg)',
                         cursor: 'pointer', fontFamily: 'inherit',
                         transition: 'color 150ms ease, border-color 150ms ease, background 150ms ease',
-                        width: '100%',
+                        width: '100%', justifyContent: 'center',
                       }}
                       onMouseEnter={e => {
                         e.currentTarget.style.color = 'var(--color-text)'
@@ -348,7 +349,7 @@ export function Contact() {
                       }}
                     >
                       <FiDownload size={13} />
-                      Download Resume
+                      <span style={{ flex: 1, textAlign: 'center' }}>Download Resume</span>
                       <FiChevronDown size={13} style={{ marginLeft: 'auto', transition: 'transform 200ms', transform: resumeOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
                     </button>
 
@@ -419,6 +420,7 @@ export function Contact() {
               display: 'flex',
               flexDirection: 'column',
               gap: '1.75rem',
+              justifyContent: 'center',
             }}>
 
               {/* Form heading */}
