@@ -1,6 +1,6 @@
 import { useState, useId } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload } from 'react-icons/fi'
 import emailjs from '@emailjs/browser'
 import { FadeIn } from '@/components/ui'
 import { meta } from '@/data'
@@ -9,6 +9,27 @@ import { useCopyToClipboard } from '@/hooks'
 const EJS_SERVICE  = 'service_8bb52ds'
 const EJS_TEMPLATE = 'template_ivnyi7n'
 const EJS_PUBLIC   = 'WqYniDkLpQ3wTANCB'
+
+const WHY_BULLETS = [
+  'Production-ready development',
+  'Clean & maintainable code',
+  'CMS & business applications',
+  'REST API development',
+  'Reliable communication',
+]
+
+const SEEKING = [
+  'Full-Stack Web Developer',
+  'Laravel / PHP Developer',
+  'Backend Developer',
+  'Software Engineer',
+]
+
+const TRUST_ITEMS = [
+  'Usually replies within 24 hours',
+  'Open to remote, onsite & hybrid roles',
+  'Available for full-time opportunities',
+]
 
 interface FormState  { name: string; email: string; subject: string; message: string }
 interface FormErrors { email?: string; name?: string; subject?: string; message?: string }
@@ -67,9 +88,9 @@ function inputStyle(hasError: boolean): React.CSSProperties {
 }
 
 function onFocus(e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) {
-  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.5)'
+  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.55)'
   e.currentTarget.style.background  = 'rgba(255,255,255,0.05)'
-  e.currentTarget.style.boxShadow   = '0 0 0 3px rgba(59,130,246,0.08)'
+  e.currentTarget.style.boxShadow   = '0 0 0 3px rgba(59,130,246,0.09)'
 }
 function onBlurInput(hasError: boolean) {
   return (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -156,7 +177,7 @@ export function Contact() {
         {/* ── Two-column ── */}
         <div className="contact-grid">
 
-          {/* ── LEFT — Profile card ── */}
+          {/* ── LEFT — Hiring summary card ── */}
           <FadeIn direction="up" style={{ height: '100%' }}>
             <div style={{
               height: '100%',
@@ -172,29 +193,29 @@ export function Contact() {
                 background: 'linear-gradient(90deg, #3B82F6 0%, rgba(59,130,246,0.3) 100%)',
               }} />
 
-              <div style={{ padding: '1.75rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.75rem', flex: 1 }}>
+              <div style={{ padding: '1.75rem 2rem', display: 'flex', flexDirection: 'column', gap: '1.5rem', flex: 1 }}>
 
                 {/* Identity */}
                 <div>
                   <p style={{
                     fontSize: 'var(--text-lg)', fontWeight: 700,
                     color: 'var(--color-text)', letterSpacing: '-0.03em',
-                    marginBottom: '0.25rem',
+                    marginBottom: '0.2rem',
                   }}>
                     {meta.name}
                   </p>
-                  <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-accent-light)', marginBottom: '0.5rem' }}>
+                  <p style={{ fontSize: 'var(--text-sm)', color: 'var(--color-accent-light)', marginBottom: '0.4rem' }}>
                     Full-Stack Web Developer
                   </p>
-                  <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em' }}>
+                  <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em' }}>
                     Islamabad, Pakistan
                   </p>
                 </div>
 
-                {/* Availability */}
+                {/* Availability badge */}
                 <div style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                  padding: '0.45rem 0.875rem',
+                  padding: '0.4rem 0.875rem',
                   background: 'rgba(52,211,153,0.07)',
                   border: '1px solid rgba(52,211,153,0.18)',
                   borderRadius: 'var(--radius-full)',
@@ -202,64 +223,74 @@ export function Contact() {
                 }}>
                   <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#34D399', flexShrink: 0 }} />
                   <span style={{ fontSize: 'var(--text-xs)', fontWeight: 500, color: '#34D399', letterSpacing: '0.01em' }}>
-                    Available for full-time roles
+                    Available for Full-Time Opportunities
                   </span>
+                </div>
+
+                {/* Summary paragraph */}
+                <p style={{
+                  fontSize: 'var(--text-sm)', lineHeight: 1.75,
+                  color: 'var(--color-muted)', letterSpacing: '-0.01em',
+                }}>
+                  I build production-ready web applications using Laravel, React, Node.js, PHP, and MySQL. My experience includes CMS platforms, REST APIs, business systems, production deployments, and backend engineering for real client projects.
+                </p>
+
+                <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
+
+                {/* Why Work With Me */}
+                <div>
+                  <p style={{
+                    fontSize: '10px', fontWeight: 600,
+                    letterSpacing: '0.07em', textTransform: 'uppercase',
+                    color: 'rgba(255,255,255,0.22)', marginBottom: '0.6rem',
+                  }}>
+                    Why Work With Me
+                  </p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                    {WHY_BULLETS.map(item => (
+                      <div key={item} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                        <span style={{ color: 'rgba(59,130,246,0.6)', fontSize: 10, flexShrink: 0 }}>•</span>
+                        <span style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.45)', letterSpacing: '-0.01em' }}>
+                          {item}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
                 </div>
 
                 <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
 
-                {/* Email */}
+                {/* Contact links */}
                 <div>
                   <p style={{
-                    fontSize: 'var(--text-xs)', fontWeight: 600,
+                    fontSize: '10px', fontWeight: 600,
                     letterSpacing: '0.07em', textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.22)', marginBottom: '0.5rem',
+                    color: 'rgba(255,255,255,0.22)', marginBottom: '0.6rem',
                   }}>
-                    Email
+                    Contact
                   </p>
-                  <a
-                    href={`mailto:${meta.email}`}
-                    style={{
-                      fontSize: 'var(--text-sm)', color: 'var(--color-muted)',
-                      letterSpacing: '-0.01em', transition: 'color 150ms ease',
-                      display: 'inline-block',
-                    }}
-                    onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
-                    onMouseLeave={e => (e.currentTarget.style.color = 'var(--color-muted)')}
-                  >
-                    {meta.email}
-                  </a>
-                </div>
-
-                {/* Links */}
-                <div>
-                  <p style={{
-                    fontSize: 'var(--text-xs)', fontWeight: 600,
-                    letterSpacing: '0.07em', textTransform: 'uppercase',
-                    color: 'rgba(255,255,255,0.22)', marginBottom: '0.75rem',
-                  }}>
-                    Links
-                  </p>
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                     {[
-                      { label: 'GitHub',   href: meta.github,    icon: <FiGithub size={13} />,       hoverColor: 'var(--color-text)' },
-                      { label: 'LinkedIn', href: meta.linkedin,  icon: <FiLinkedin size={13} />,     hoverColor: 'var(--color-text)' },
-                      { label: 'Resume',   href: meta.resumeUrl, icon: <FiExternalLink size={13} />, hoverColor: 'var(--color-text)' },
+                      { label: meta.email,  href: `mailto:${meta.email}`, icon: null,                      external: false },
+                      { label: 'GitHub',    href: meta.github,            icon: <FiGithub size={12} />,    external: true  },
+                      { label: 'LinkedIn',  href: meta.linkedin,          icon: <FiLinkedin size={12} />,  external: true  },
+                      { label: 'Resume',    href: meta.resumeUrl,         icon: <FiExternalLink size={12}/>,external: true  },
                     ].map(link => (
                       <a
                         key={link.label}
                         href={link.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                        target={link.external ? '_blank' : undefined}
+                        rel={link.external ? 'noopener noreferrer' : undefined}
                         style={{
-                          display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                          display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
                           fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.4)',
                           transition: 'color 150ms ease', width: 'fit-content',
+                          letterSpacing: '-0.01em',
                         }}
-                        onMouseEnter={e => (e.currentTarget.style.color = link.hoverColor)}
+                        onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
                         onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
                       >
-                        <span style={{ color: 'rgba(255,255,255,0.25)' }}>{link.icon}</span>
+                        {link.icon && <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>{link.icon}</span>}
                         {link.label}
                       </a>
                     ))}
@@ -268,7 +299,7 @@ export function Contact() {
 
                 <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
 
-                {/* Actions */}
+                {/* Action buttons */}
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
                   <button
                     onClick={() => copy(meta.email)}
@@ -289,8 +320,10 @@ export function Contact() {
                     {copied ? 'Email Copied!' : 'Copy Email'}
                   </button>
 
-                  <button
-                    onClick={() => window.dispatchEvent(new Event('open-cv-modal'))}
+                  <a
+                    href={meta.resumeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     style={{
                       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
                       padding: '0.65rem 1rem',
@@ -299,9 +332,9 @@ export function Contact() {
                       background: 'transparent',
                       border: '1px solid rgba(255,255,255,0.08)',
                       borderRadius: 'var(--radius-lg)',
-                      cursor: 'pointer', fontFamily: 'inherit',
+                      fontFamily: 'inherit',
                       transition: 'color 150ms ease, border-color 150ms ease, background 150ms ease',
-                      width: '100%',
+                      textDecoration: 'none',
                     }}
                     onMouseEnter={e => {
                       e.currentTarget.style.color = 'var(--color-text)'
@@ -310,20 +343,14 @@ export function Contact() {
                     }}
                     onMouseLeave={e => {
                       e.currentTarget.style.color = 'rgba(255,255,255,0.45)'
-                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
+                      e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'
                       e.currentTarget.style.background = 'transparent'
                     }}
                   >
-                    View Resume
-                  </button>
+                    <FiDownload size={13} />
+                    Download Resume
+                  </a>
                 </div>
-
-                <p style={{
-                  fontSize: '11px', color: 'rgba(255,255,255,0.2)',
-                  letterSpacing: '0.01em', marginTop: 'auto',
-                }}>
-                  Usually responds within 24 hours.
-                </p>
 
               </div>
             </div>
@@ -338,12 +365,58 @@ export function Contact() {
               borderRadius: 'var(--radius-2xl)',
               padding: '2rem',
               display: 'flex',
-              alignItems: 'center',
+              flexDirection: 'column',
+              gap: '1.75rem',
             }}>
+
+              {/* Form heading */}
+              <div>
+                <p style={{
+                  fontSize: 'clamp(1.1rem, 2vw, 1.25rem)', fontWeight: 700,
+                  color: 'var(--color-text)', letterSpacing: '-0.03em',
+                  lineHeight: 1.2, marginBottom: '0.5rem',
+                }}>
+                  Let's build something great.
+                </p>
+                <p style={{
+                  fontSize: 'var(--text-sm)', lineHeight: 1.7,
+                  color: 'var(--color-muted)', letterSpacing: '-0.01em',
+                }}>
+                  Whether you're hiring a full-time developer, discussing a project, or simply want to connect, I'd love to hear from you.
+                </p>
+              </div>
+
+              {/* Currently Seeking */}
+              <div style={{
+                padding: '1rem 1.25rem',
+                background: 'rgba(59,130,246,0.04)',
+                border: '1px solid rgba(59,130,246,0.12)',
+                borderRadius: 'var(--radius-lg)',
+              }}>
+                <p style={{
+                  fontSize: '10px', fontWeight: 600,
+                  letterSpacing: '0.07em', textTransform: 'uppercase',
+                  color: 'rgba(255,255,255,0.3)', marginBottom: '0.6rem',
+                }}>
+                  Currently Seeking
+                </p>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.35rem 1.25rem' }}>
+                  {SEEKING.map(role => (
+                    <div key={role} style={{ display: 'flex', gap: '0.4rem', alignItems: 'center' }}>
+                      <span style={{ color: '#60a5fa', fontSize: 10, flexShrink: 0 }}>✓</span>
+                      <span style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.01em' }}>
+                        {role}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Form */}
               <form
                 onSubmit={handleSubmit}
                 noValidate
-                style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem', width: '100%' }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '1.1rem' }}
                 aria-label="Contact form"
               >
                 <div className="contact-name-email">
@@ -362,7 +435,7 @@ export function Contact() {
                   <Field id={`${uid}-email`} label="Email" error={errors.email}>
                     <input
                       id={`${uid}-email`} type="email"
-                      value={form.email} placeholder="you@company.com"
+                      value={form.email} placeholder="your@email.com"
                       autoComplete="email" aria-invalid={!!errors.email}
                       onChange={e => handleChange('email', e.target.value)}
                       onBlur={() => handleBlur('email')}
@@ -376,7 +449,7 @@ export function Contact() {
                 <Field id={`${uid}-subject`} label="Subject">
                   <input
                     id={`${uid}-subject`} type="text"
-                    value={form.subject} placeholder="Full-Stack Web Developer Opportunity"
+                    value={form.subject} placeholder="Job opportunity / Project discussion"
                     onChange={e => handleChange('subject', e.target.value)}
                     onBlur={() => handleBlur('subject')}
                     style={inputStyle(false)}
@@ -388,36 +461,44 @@ export function Contact() {
                 <Field id={`${uid}-message`} label="Message">
                   <textarea
                     id={`${uid}-message`}
-                    value={form.message} placeholder="Tell me about the role, project, or collaboration..."
-                    rows={6}
+                    value={form.message} placeholder="Tell me about your project, opportunity, or idea..."
+                    rows={5}
                     onChange={e => handleChange('message', e.target.value)}
                     onBlur={() => handleBlur('message')}
-                    style={{ ...inputStyle(false), resize: 'vertical', minHeight: 140 }}
+                    style={{ ...inputStyle(false), resize: 'vertical', minHeight: 120 }}
                     onFocus={onFocus}
                     onBlurCapture={onBlurInput(false)}
                   />
                 </Field>
 
-                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.25rem' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem' }}>
                   <button
                     type="submit"
                     disabled={sending}
                     style={{
                       display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
-                      padding: '0.8rem 1.75rem',
+                      padding: '0.85rem 1.75rem',
                       fontSize: 'var(--text-sm)', fontWeight: 600,
                       color: '#fff',
                       background: sending ? 'rgba(59,130,246,0.6)' : 'var(--color-accent)',
                       border: '1px solid transparent',
                       borderRadius: 'var(--radius-lg)',
                       cursor: sending ? 'not-allowed' : 'pointer',
-                      transition: 'filter 150ms ease, background 150ms ease',
+                      transition: 'filter 150ms ease, transform 150ms ease, background 150ms ease',
                       fontFamily: 'inherit',
                       width: '100%',
                       letterSpacing: '-0.01em',
                     }}
-                    onMouseEnter={e => { if (!sending) e.currentTarget.style.filter = 'brightness(1.1)' }}
-                    onMouseLeave={e => { e.currentTarget.style.filter = '' }}
+                    onMouseEnter={e => {
+                      if (!sending) {
+                        e.currentTarget.style.filter = 'brightness(1.12)'
+                        e.currentTarget.style.transform = 'translateY(-1px)'
+                      }
+                    }}
+                    onMouseLeave={e => {
+                      e.currentTarget.style.filter = ''
+                      e.currentTarget.style.transform = ''
+                    }}
                   >
                     {sending ? (
                       <>
@@ -456,6 +537,23 @@ export function Contact() {
                   </AnimatePresence>
                 </div>
               </form>
+
+              {/* Trust strip */}
+              <div style={{
+                paddingTop: '1.25rem',
+                borderTop: '1px solid rgba(255,255,255,0.06)',
+                display: 'flex', flexDirection: 'column', gap: '0.35rem',
+              }}>
+                {TRUST_ITEMS.map(item => (
+                  <div key={item} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
+                    <span style={{ color: '#34D399', fontSize: 10, flexShrink: 0 }}>✔</span>
+                    <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em' }}>
+                      {item}
+                    </span>
+                  </div>
+                ))}
+              </div>
+
             </div>
           </FadeIn>
 

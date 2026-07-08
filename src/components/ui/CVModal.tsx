@@ -156,7 +156,7 @@ export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
 
                 <button
                   onClick={() => forceDownload(pdfUrl, 'M-Faizan-Khan-Resume.pdf')}
-                  aria-label="Download Resume"
+                  aria-label="Download PDF"
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
                     padding: '0 0.875rem', height: 34,
@@ -171,7 +171,27 @@ export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
                   onMouseLeave={e => { e.currentTarget.style.filter = '' }}
                 >
                   <Download size={13} strokeWidth={2.5} />
-                  Download
+                  PDF
+                </button>
+
+                <button
+                  onClick={() => forceDownload('/resume/M Faizan Khan.docx', 'M-Faizan-Khan-Resume.docx')}
+                  aria-label="Download DOCX"
+                  style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                    padding: '0 0.875rem', height: 34,
+                    fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.7)',
+                    background: 'rgba(255,255,255,0.06)',
+                    border: '1px solid rgba(255,255,255,0.12)',
+                    borderRadius: 8, cursor: 'pointer',
+                    transition: 'background 150ms, color 150ms',
+                    whiteSpace: 'nowrap',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.1)'; e.currentTarget.style.color = '#fff' }}
+                  onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.06)'; e.currentTarget.style.color = 'rgba(255,255,255,0.7)' }}
+                >
+                  <Download size={13} strokeWidth={2.5} />
+                  DOCX
                 </button>
 
                 <button
@@ -237,6 +257,22 @@ export function CVModal({ open, onClose, pdfUrl }: CVModalProps) {
                   >
                     <Download size={16} strokeWidth={2.5} />
                     Download PDF
+                  </button>
+
+                  <button
+                    onClick={() => forceDownload('/resume/M Faizan Khan.docx', 'M-Faizan-Khan-Resume.docx')}
+                    style={{
+                      display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem',
+                      padding: '0.875rem 1.5rem', width: '100%',
+                      fontSize: 15, fontWeight: 600,
+                      color: 'rgba(255,255,255,0.7)',
+                      background: 'rgba(255,255,255,0.06)',
+                      border: '1px solid rgba(255,255,255,0.12)',
+                      borderRadius: 12, cursor: 'pointer',
+                    }}
+                  >
+                    <Download size={16} strokeWidth={2.5} />
+                    Download DOCX
                   </button>
 
                   <a
