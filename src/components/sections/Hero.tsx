@@ -1,6 +1,6 @@
 import { motion, useReducedMotion } from 'framer-motion'
 import { ArrowRight, FileText } from 'lucide-react'
-import { FiGithub, FiLinkedin } from 'react-icons/fi'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { BackendPanel } from '@/components/ui'
 import { meta } from '@/data'
 
@@ -186,9 +186,9 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="GitHub profile"
-                  className="hero-btn-outline"
+                  className="hero-btn-github"
                 >
-                  <FiGithub size={13} />
+                  <FaGithub size={14} />
                   GitHub
                 </a>
 
@@ -198,9 +198,9 @@ export function Hero() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="LinkedIn profile"
-                  className="hero-btn-outline"
+                  className="hero-btn-linkedin"
                 >
-                  <FiLinkedin size={13} />
+                  <FaLinkedin size={14} />
                   LinkedIn
                 </a>
               </motion.div>
@@ -315,6 +315,60 @@ export function Hero() {
           color: var(--color-text);
           border-color: rgba(255,255,255,0.28);
           background: rgba(255,255,255,0.09);
+        }
+
+        /* GitHub button */
+        .hero-btn-github {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          height: 38px;
+          padding: 0 0.875rem;
+          font-size: var(--text-sm);
+          font-weight: 500;
+          font-family: inherit;
+          letter-spacing: -0.01em;
+          color: rgba(255,255,255,0.55);
+          background: rgba(255,255,255,0.04);
+          border: 1px solid rgba(255,255,255,0.12);
+          border-radius: var(--radius-md);
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .hero-btn-github:hover {
+          color: #e6edf3;
+          border-color: rgba(230,237,243,0.35);
+          background: rgba(230,237,243,0.07);
+        }
+
+        /* LinkedIn button */
+        .hero-btn-linkedin {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.35rem;
+          height: 38px;
+          padding: 0 0.875rem;
+          font-size: var(--text-sm);
+          font-weight: 500;
+          font-family: inherit;
+          letter-spacing: -0.01em;
+          color: rgba(10,102,194,0.8);
+          background: rgba(10,102,194,0.07);
+          border: 1px solid rgba(10,102,194,0.25);
+          border-radius: var(--radius-md);
+          text-decoration: none;
+          cursor: pointer;
+          transition: color 150ms ease, border-color 150ms ease, background 150ms ease;
+          white-space: nowrap;
+          flex-shrink: 0;
+        }
+        .hero-btn-linkedin:hover {
+          color: #0A66C2;
+          border-color: rgba(10,102,194,0.5);
+          background: rgba(10,102,194,0.12);
         }
 
         /* Outline buttons — GitHub / LinkedIn */
