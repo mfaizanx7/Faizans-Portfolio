@@ -11,7 +11,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingBlock: '3rem 2rem' }}>
+    <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingBlock: '4rem 2.5rem' }}>
       <div className="container">
 
         {/* ── Main grid ── */}
@@ -24,12 +24,12 @@ export function Footer() {
               color: 'var(--color-text)', letterSpacing: '-0.03em',
               marginBottom: '0.3rem',
             }}>
-              {meta.shortName}
+              {meta.name}
             </p>
-            <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.35)', letterSpacing: '-0.01em' }}>
+            <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.5)', letterSpacing: '-0.01em' }}>
               Full-Stack Web Developer
             </p>
-            <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.2)', marginTop: '0.2rem' }}>
+            <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.28)', marginTop: '0.25rem' }}>
               Islamabad, Pakistan
             </p>
           </div>
@@ -49,12 +49,12 @@ export function Footer() {
                   key={l.label}
                   href={l.href}
                   style={{
-                    fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.4)',
+                    fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.45)',
                     transition: 'color 150ms ease', letterSpacing: '-0.01em',
                     minHeight: 'unset', display: 'inline',
                   }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
                 >
                   {l.label}
                 </a>
@@ -79,15 +79,15 @@ export function Footer() {
                   target={l.external ? '_blank' : undefined}
                   rel={l.external ? 'noopener noreferrer' : undefined}
                   style={{
-                    fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.4)',
+                    fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.45)',
                     transition: 'color 150ms ease', letterSpacing: '-0.01em',
                     display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
                     minHeight: 'unset',
                   }}
                   onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
-                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.45)')}
                 >
-                  <span style={{ color: 'rgba(255,255,255,0.25)', flexShrink: 0 }}>{l.icon}</span>
+                  <span style={{ color: 'rgba(255,255,255,0.3)', flexShrink: 0 }}>{l.icon}</span>
                   {l.label}
                 </a>
               ))}
@@ -105,18 +105,18 @@ export function Footer() {
           alignItems: 'center', justifyContent: 'space-between',
           gap: '0.375rem',
         }}>
-          <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.18)', letterSpacing: '0.01em' }}>
+          <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.25)', letterSpacing: '0.01em' }}>
             Open to full-time roles · Available now
           </p>
           <a
             href={`mailto:${meta.email}`}
             style={{
-              fontSize: 11, color: 'rgba(255,255,255,0.22)',
+              fontSize: 12, color: 'rgba(255,255,255,0.3)',
               letterSpacing: '0.01em', transition: 'color 150ms',
               minHeight: 'unset',
             }}
-            onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
-            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.22)')}
+            onMouseEnter={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.6)')}
+            onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.3)')}
           >
             {meta.email}
           </a>

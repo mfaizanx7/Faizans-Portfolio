@@ -131,7 +131,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" aria-labelledby="contact-heading" className="section">
+    <section id="contact" aria-labelledby="contact-heading" className="section" style={{ paddingTop: '6rem' }}>
       <div className="container">
 
         {/* ── Header ── */}
@@ -140,15 +140,15 @@ export function Contact() {
             <h2 id="contact-heading" style={{
               fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)', fontWeight: 700,
               letterSpacing: '-0.04em', color: 'var(--color-text)',
-              lineHeight: 1.1, marginBottom: '0.875rem',
+              lineHeight: 1.15, marginBottom: '0.875rem',
             }}>
-              Let's Build Reliable Web Applications
+              Let's Build Reliable<br />Web Applications
             </h2>
             <p style={{
               fontSize: 'var(--text-base)', lineHeight: 1.75,
               color: 'var(--color-muted)', maxWidth: 540,
             }}>
-              I'm open to Full-Stack Web Developer, Laravel Developer, PHP Developer, and Backend Developer opportunities.
+              I'm open to Full-Stack Web Developer, Laravel Developer, PHP Developer, and Backend Developer opportunities. If you're hiring for clean web applications, CMS platforms, REST APIs, or business systems, let's connect.
             </p>
           </div>
         </FadeIn>
