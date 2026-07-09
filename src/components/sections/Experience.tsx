@@ -16,10 +16,10 @@ const EXPERIENCES = [
       { label: 'Perfect Doors',       slug: 'perfect-doors-cms'       },
     ],
     highlights: [
-      'Laravel → React migration',
-      'Custom CMS platforms',
-      'Production deployments (cPanel, SSL, DNS)',
-      'Production feature development',
+      'Full-Stack Web Development',
+      'Client-facing Production Deployments',
+      'CMS & Admin Panel Development',
+      'REST API & Backend Engineering',
     ],
   },
   {
@@ -32,9 +32,9 @@ const EXPERIENCES = [
       { label: 'PomPak Financial Literacy Platform', slug: 'pompak-financial-literacy' },
     ],
     highlights: [
-      'Laravel + SQL Server development',
-      'Bug fixes and feature enhancements',
-      'Enterprise development workflow',
+      'Laravel & PHP Backend Development',
+      'SQL Server Integration',
+      'Production Bug Fixes & Enhancements',
     ],
   },
 ]
@@ -89,7 +89,7 @@ export function Experience() {
 
         {/* ── Header ── */}
         <FadeIn>
-          <div style={{ marginBottom: '3rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
+          <div style={{ marginBottom: '3rem' }}>
             <h2 id="exp-heading" style={{
               fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
               fontWeight: 700, letterSpacing: '-0.04em',
@@ -97,23 +97,6 @@ export function Experience() {
             }}>
               Professional Experience
             </h2>
-            {isRecruiterMode && (
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
-                padding: '0.25rem 0.65rem',
-                fontSize: 10, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
-                color: '#60a5fa',
-                background: 'rgba(59,130,246,0.08)',
-                border: '1px solid rgba(59,130,246,0.2)',
-                borderRadius: 6,
-                fontFamily: 'var(--font-mono)',
-                flexShrink: 0,
-                alignSelf: 'center',
-              }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#60a5fa', flexShrink: 0 }} />
-                Recruiter View
-              </span>
-            )}
           </div>
         </FadeIn>
 
@@ -241,7 +224,7 @@ export function Experience() {
                           Highlights
                         </p>
                         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: isRecruiterMode ? 'row' : 'column', flexWrap: 'wrap', gap: isRecruiterMode ? '0.35rem' : '0.3rem' }}>
-                          {(isRecruiterMode ? exp.highlights.slice(0, 2) : exp.highlights).map((h, j) => (
+                          {(isRecruiterMode ? exp.highlights : exp.highlights).map((h, j) => (
                             isRecruiterMode ? (
                               <li key={j} style={{
                                 fontSize: 11, fontWeight: 600,

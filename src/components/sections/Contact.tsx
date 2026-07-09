@@ -30,7 +30,6 @@ const SEEKING = [
 const TRUST_ITEMS = [
   'Usually replies within 24 hours',
   'Open to remote, onsite & hybrid roles',
-  'Available for full-time opportunities',
 ]
 
 interface FormState  { name: string; email: string; subject: string; message: string }
@@ -257,20 +256,22 @@ export function Contact() {
                   </p>
                 </div>
 
-                {/* Availability badge */}
-                <div style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                  padding: '0.4rem 0.875rem',
-                  background: 'rgba(52,211,153,0.07)',
-                  border: '1px solid rgba(52,211,153,0.18)',
-                  borderRadius: 'var(--radius-full)',
-                  alignSelf: 'flex-start',
-                }}>
-                  <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#34D399', flexShrink: 0 }} />
-                  <span style={{ fontSize: 'var(--text-xs)', fontWeight: 500, color: '#34D399', letterSpacing: '0.01em' }}>
-                    Available for Full-Time Opportunities
-                  </span>
-                </div>
+                {/* Availability badge — recruiter mode only */}
+                {isRecruiterMode && (
+                  <div style={{
+                    display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+                    padding: '0.4rem 0.875rem',
+                    background: 'rgba(52,211,153,0.07)',
+                    border: '1px solid rgba(52,211,153,0.18)',
+                    borderRadius: 'var(--radius-full)',
+                    alignSelf: 'flex-start',
+                  }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#34D399', flexShrink: 0 }} />
+                    <span style={{ fontSize: 'var(--text-xs)', fontWeight: 500, color: '#34D399', letterSpacing: '0.01em' }}>
+                      Available for Full-Time Opportunities
+                    </span>
+                  </div>
+                )}
 
                 {/* Summary paragraph */}
                 <p style={{
@@ -483,7 +484,8 @@ export function Contact() {
                 </p>
               </div>
 
-              {/* Currently Seeking */}
+              {/* Currently Seeking — recruiter mode only */}
+              {isRecruiterMode && (
               <div style={{
                 padding: '1rem 1.25rem',
                 background: 'rgba(59,130,246,0.04)',
@@ -508,6 +510,7 @@ export function Contact() {
                   ))}
                 </div>
               </div>
+              )}
 
               {/* Form */}
               <form

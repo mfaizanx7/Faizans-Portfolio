@@ -1,16 +1,7 @@
 import { FadeIn } from '@/components/ui'
 import { stackGroups } from '@/data'
-import { useRecruiterMode } from '@/context/RecruiterModeContext'
-
-const RECRUITER_SKILLS: Record<string, string[]> = {
-  'Backend Engineering':  ['Laravel', 'PHP', 'Node.js', 'REST APIs', 'Eloquent ORM'],
-  'Frontend Development': ['React.js', 'TypeScript', 'JavaScript (ES6+)', 'HTML5', 'CSS3'],
-  'Data Layer':           ['MySQL', 'SQL Server', 'Database Design', 'Query Optimization'],
-  'Tools & Deployment':   ['Git', 'GitHub', 'cPanel', 'Docker', 'Postman'],
-}
 
 export function TechStack() {
-  const { isRecruiterMode } = useRecruiterMode()
   return (
     <section
       id="stack"
@@ -49,23 +40,7 @@ export function TechStack() {
                 Technical Skills
               </h2>
             </div>
-            {isRecruiterMode && (
-              <span style={{
-                display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
-                padding: '0.25rem 0.65rem',
-                fontSize: 10, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
-                color: '#60a5fa',
-                background: 'rgba(59,130,246,0.08)',
-                border: '1px solid rgba(59,130,246,0.2)',
-                borderRadius: 6,
-                fontFamily: 'var(--font-mono)',
-                flexShrink: 0,
-                alignSelf: 'center',
-              }}>
-                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#60a5fa', flexShrink: 0 }} />
-                Core Skills Only
-              </span>
-            )}
+
           </div>
         </FadeIn>
 
@@ -128,16 +103,16 @@ export function TechStack() {
 
                 {/* Skill chips */}
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.375rem' }}>
-                  {(isRecruiterMode ? (RECRUITER_SKILLS[group.label] ?? group.skills) : group.skills).map(skill => (
+                  {group.skills.map(skill => (
                     <span
                       key={skill}
                       style={{
                         padding: '0.25rem 0.625rem',
                         fontSize: 'var(--text-xs)',
-                        fontWeight: isRecruiterMode ? 600 : 500,
-                        color: isRecruiterMode ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.45)',
-                        background: isRecruiterMode ? `${group.color}10` : 'rgba(255,255,255,0.04)',
-                        border: `1px solid ${isRecruiterMode ? `${group.color}28` : 'rgba(255,255,255,0.09)'}`,
+                        fontWeight: 500,
+                        color: 'rgba(255,255,255,0.45)',
+                        background: 'rgba(255,255,255,0.04)',
+                        border: '1px solid rgba(255,255,255,0.09)',
                         borderRadius: 'var(--radius-md)',
                         letterSpacing: '0.01em',
                         transition: 'color 150ms ease, border-color 150ms ease, background 150ms ease',
@@ -149,9 +124,9 @@ export function TechStack() {
                         e.currentTarget.style.background = `${group.color}0d`
                       }}
                       onMouseLeave={e => {
-                        e.currentTarget.style.color = isRecruiterMode ? 'rgba(255,255,255,0.75)' : 'rgba(255,255,255,0.45)'
-                        e.currentTarget.style.borderColor = isRecruiterMode ? `${group.color}28` : 'rgba(255,255,255,0.09)'
-                        e.currentTarget.style.background = isRecruiterMode ? `${group.color}10` : 'rgba(255,255,255,0.04)'
+                        e.currentTarget.style.color = 'rgba(255,255,255,0.45)'
+                        e.currentTarget.style.borderColor = 'rgba(255,255,255,0.09)'
+                        e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
                       }}
                     >
                       {skill}

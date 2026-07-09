@@ -1,18 +1,10 @@
 import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
-import { ArrowRight, FileText } from 'lucide-react'
+import { ArrowRight, FileText, Mail } from 'lucide-react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { BackendPanel } from '@/components/ui'
 import { meta } from '@/data'
 import { useRecruiterMode } from '@/context/RecruiterModeContext'
 import { useEffect, useState } from 'react'
-
-const RECRUITER_BULLETS = [
-  { icon: '⚡', label: 'Role',         text: 'Full-Stack Developer',      sub: 'Laravel · React · Node.js · MySQL' },
-  { icon: '🚀', label: 'Shipped',      text: '4 Production Projects',     sub: 'Live · Client-facing · Real users' },
-  { icon: '🔧', label: 'Builds',       text: 'APIs · CMS · Admin Panels', sub: 'REST · Blade · React frontends'   },
-  { icon: '🎓', label: 'Education',    text: 'BS Computer Science',       sub: 'In progress · Islamabad'          },
-  { icon: '✅', label: 'Availability', text: 'Available Immediately',     sub: 'Remote · Onsite · Hybrid'         },
-]
 
 const STATUS_TEXT = '> RECRUITER_VIEW.exe — initializing...'
 
@@ -114,22 +106,19 @@ export function Hero() {
               className="hero-left"
             >
               {/* ── Availability badge / Recruiter status ── */}
-              <motion.div variants={reduced ? itemReduced : item} style={{ marginBottom: '1.75rem' }}>
-                <AnimatePresence mode="wait">
-                  {isRecruiterMode ? (
-                    <TypewriterStatus key="recruiter" />
-                  ) : (
-                    <motion.span
-                      key="normal"
-                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-                      className="avail-badge"
-                    >
-                      <span className="avail-dot" />
-                      Available for Full-Time Opportunities
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </motion.div>
+              <AnimatePresence mode="wait">
+                {isRecruiterMode ? (
+                  <motion.div key="recruiter" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.2 }} style={{ marginBottom: '1.75rem' }}>
+                    <TypewriterStatus />
+                    <div style={{ marginTop: '0.5rem' }}>
+                      <span className="avail-badge">
+                        <span className="avail-dot" />
+                        Available for Full-Time Opportunities
+                      </span>
+                    </div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
 
               {/* ── Name ── */}
               <motion.h1
@@ -188,33 +177,27 @@ export function Hero() {
                 style={{ marginBottom: '2.75rem' }}
               >
                 {isRecruiterMode ? (
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
-                    {RECRUITER_BULLETS.map((b, i) => (
-                      <motion.div
-                        key={i}
-                        initial={{ opacity: 0, x: -12 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.28, delay: i * 0.07, ease: EASE }}
-                        style={{
-                          display: 'flex', alignItems: 'center', gap: '0.75rem',
-                          padding: '0.45rem 0.75rem',
-                          background: 'rgba(59,130,246,0.04)',
-                          border: '1px solid rgba(59,130,246,0.1)',
-                          borderRadius: 8,
-                        }}
-                      >
-                        <span style={{ fontSize: 14, flexShrink: 0, lineHeight: 1 }}>{b.icon}</span>
-                        <div style={{ minWidth: 0 }}>
-                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
-                            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'rgba(59,130,246,0.85)', flexShrink: 0, letterSpacing: '-0.01em' }}>{b.label}</span>
-                            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 400, color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}>·</span>
-                            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'rgba(255,255,255,0.9)', letterSpacing: '-0.01em' }}>{b.text}</span>
-                          </div>
-                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.01em', marginTop: 2 }}>{b.sub}</div>
-                        </div>
-                      </motion.div>
-                    ))}
-                  </div>
+                  <motion.div
+                    initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                    transition={{ duration: 0.25, ease: EASE }}
+                    style={{
+                      display: 'inline-flex', flexDirection: 'column', gap: '0.5rem',
+                      padding: '0.75rem 1rem',
+                      background: 'rgba(59,130,246,0.04)',
+                      border: '1px solid rgba(59,130,246,0.12)',
+                      borderRadius: 'var(--radius-lg)',
+                    }}
+                  >
+                    <span style={{ fontSize: 'var(--text-xs)', fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>
+                      Actively Seeking Roles
+                    </span>
+                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-muted)', letterSpacing: '-0.01em' }}>
+                      Full-Stack · Laravel · React · Node.js · MySQL
+                    </span>
+                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-muted)', letterSpacing: '-0.01em' }}>
+                      Remote · Onsite · Hybrid · Islamabad, Pakistan
+                    </span>
+                  </motion.div>
                 ) : (
                   <p style={{
                     fontSize: 'var(--text-sm)', fontWeight: 400,
@@ -228,51 +211,50 @@ export function Hero() {
               {/* ── CTAs ── */}
               <motion.div
                 variants={reduced ? itemReduced : item}
-                style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}
+                style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
               >
-                {/* Primary — View Projects */}
-                <a
-                  href="#work"
-                  className="hero-btn-primary"
-                >
-                  View Projects <ArrowRight size={13} strokeWidth={2.5} />
-                </a>
+                {/* Row 1 — primary actions */}
+                <div className="hero-cta-row">
+                  <a href="#work" className="hero-btn-primary">
+                    View Projects <ArrowRight size={13} strokeWidth={2.5} />
+                  </a>
 
-                {/* Secondary — View Resume */}
-                <button
-                  onClick={openCVModal}
-                  className="hero-btn-resume"
-                >
-                  <FileText size={13} strokeWidth={2} />
-                  View Resume
-                </button>
+                  {isRecruiterMode && (
+                    <a
+                      href={`mailto:${meta.email}?subject=Hiring%20Inquiry%20%E2%80%94%20Full-Stack%20Developer&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity.`}
+                      className="hero-btn-hire"
+                    >
+                      <Mail size={13} strokeWidth={2} /> Hire Me
+                    </a>
+                  )}
 
-                {/* Divider */}
-                <span aria-hidden className="hero-cta-divider" />
+                  <button onClick={openCVModal} className="hero-btn-resume">
+                    <FileText size={13} strokeWidth={2} />
+                    View Resume
+                  </button>
+                </div>
 
-                {/* Outline — GitHub */}
-                <a
-                  href={meta.github}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="GitHub profile"
-                  className="hero-btn-github"
-                >
-                  <FaGithub size={14} />
-                  GitHub
-                </a>
-
-                {/* Outline — LinkedIn */}
-                <a
-                  href={meta.linkedin}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn profile"
-                  className="hero-btn-linkedin"
-                >
-                  <FaLinkedin size={14} />
-                  LinkedIn
-                </a>
+                {/* Row 2 — social */}
+                <div className="hero-cta-row">
+                  <a
+                    href={meta.github}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub profile"
+                    className="hero-btn-github"
+                  >
+                    <FaGithub size={14} /> GitHub
+                  </a>
+                  <a
+                    href={meta.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn profile"
+                    className="hero-btn-linkedin"
+                  >
+                    <FaLinkedin size={14} /> LinkedIn
+                  </a>
+                </div>
               </motion.div>
             </motion.div>
 
@@ -339,6 +321,14 @@ export function Hero() {
           .avail-dot { animation: none; }
         }
 
+        /* CTA rows */
+        .hero-cta-row {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          flex-wrap: nowrap;
+        }
+
         /* Primary CTA */
         .hero-btn-primary {
           display: inline-flex;
@@ -363,6 +353,34 @@ export function Hero() {
         .hero-btn-primary:hover {
           filter: brightness(1.1);
           box-shadow: 0 4px 24px rgba(59,130,246,0.45);
+        }
+
+        /* Hire Me CTA (recruiter mode) */
+        .hero-btn-hire {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.4rem;
+          height: 42px;
+          padding: 0 1.25rem;
+          font-size: var(--text-sm);
+          font-weight: 600;
+          font-family: inherit;
+          letter-spacing: -0.01em;
+          color: #fff;
+          background: linear-gradient(135deg, rgba(59,130,246,0.15) 0%, rgba(99,102,241,0.15) 100%);
+          border: 1px solid rgba(59,130,246,0.45);
+          border-radius: var(--radius-md);
+          text-decoration: none;
+          cursor: pointer;
+          transition: border-color 150ms ease, background 150ms ease, box-shadow 150ms ease;
+          white-space: nowrap;
+          flex-shrink: 0;
+          box-shadow: 0 0 14px rgba(59,130,246,0.2);
+        }
+        .hero-btn-hire:hover {
+          border-color: rgba(59,130,246,0.75);
+          background: linear-gradient(135deg, rgba(59,130,246,0.25) 0%, rgba(99,102,241,0.2) 100%);
+          box-shadow: 0 0 22px rgba(59,130,246,0.35);
         }
 
         /* Resume CTA */
@@ -472,13 +490,8 @@ export function Hero() {
           background: rgba(255,255,255,0.04);
         }
 
-        /* Divider */
-        .hero-cta-divider {
-          display: block;
-          width: 1px; height: 20px;
-          background: rgba(255,255,255,0.08);
-          flex-shrink: 0;
-        }
+        /* Divider — unused, kept for safety */
+        .hero-cta-divider { display: none; }
 
         /* Panel hidden on mobile/tablet */
         .hero-panel { display: none; }
@@ -505,13 +518,16 @@ export function Hero() {
             padding-top: 5rem;
             padding-bottom: 3.5rem;
           }
-          .hero-cta-divider { display: none; }
+          .hero-cta-row {
+            flex-wrap: wrap;
+          }
           .hero-btn-primary,
-          .hero-btn-resume {
-            flex: 1 1 auto;
+          .hero-btn-hire {
+            flex: 1 1 calc(50% - 0.25rem);
             justify-content: center;
             min-width: 0;
           }
+          .hero-btn-resume,
           .hero-btn-github,
           .hero-btn-linkedin {
             flex: 1 1 auto;
@@ -522,10 +538,11 @@ export function Hero() {
 
         @media (max-width: 380px) {
           .hero-btn-primary,
+          .hero-btn-hire,
           .hero-btn-resume,
           .hero-btn-github,
           .hero-btn-linkedin {
-            width: 100%;
+            flex: 1 1 100%;
           }
         }
       `}</style>

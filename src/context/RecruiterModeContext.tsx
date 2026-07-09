@@ -28,6 +28,12 @@ export function RecruiterModeProvider({ children }: { children: React.ReactNode 
 
   useEffect(() => () => { if (scanTimer.current) clearTimeout(scanTimer.current) }, [])
 
+  useEffect(() => {
+    document.title = isRecruiterMode
+      ? 'Muhammad Faizan Khan — Hiring'
+      : 'Muhammad Faizan Khan — Full-Stack Developer'
+  }, [isRecruiterMode])
+
   return (
     <RecruiterModeContext.Provider value={{ isRecruiterMode, isScanning, toggle }}>
 
