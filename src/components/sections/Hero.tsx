@@ -119,40 +119,25 @@ export function Hero() {
                   letterSpacing: '-0.015em',
                   color: 'var(--color-text)',
                   maxWidth: 500,
-                  marginBottom: '0.625rem',
+                  marginBottom: '0.75rem',
                 }}
               >
                 Building reliable web applications from database to deployment.
               </motion.p>
 
-              {/* ── Specialization ── */}
+              {/* ── Stack line ── */}
               <motion.p
                 variants={reduced ? itemReduced : item}
                 style={{
                   fontSize: 'var(--text-sm)',
-                  fontWeight: 500,
-                  color: 'var(--color-accent-light)',
-                  letterSpacing: '-0.01em',
-                  marginBottom: '1rem',
-                  opacity: 0.85,
-                }}
-              >
-                Building full-stack web applications, business platforms, CMS solutions, and REST APIs with a strong backend engineering foundation.
-              </motion.p>
-
-              {/* ── Description ── */}
-              <motion.p
-                variants={reduced ? itemReduced : item}
-                style={{
-                  fontSize: 'var(--text-base)',
                   fontWeight: 400,
-                  lineHeight: 1.75,
                   color: 'var(--color-muted)',
-                  maxWidth: 480,
+                  letterSpacing: '-0.01em',
                   marginBottom: '2.75rem',
+                  opacity: 0.75,
                 }}
               >
-                I build production-ready web applications using Laravel, React, PHP, Node.js, and MySQL, focusing on clean architecture, maintainable code, and reliable solutions for real client projects.
+                Laravel · React · PHP · Node.js · MySQL
               </motion.p>
 
               {/* ── CTAs ── */}

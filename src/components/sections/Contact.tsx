@@ -234,7 +234,7 @@ export function Contact() {
                   fontSize: 'var(--text-sm)', lineHeight: 1.75,
                   color: 'var(--color-muted)', letterSpacing: '-0.01em',
                 }}>
-                  I build production-ready web applications using Laravel, React, Node.js, PHP, and MySQL. My experience includes CMS platforms, REST APIs, business systems, production deployments, and backend engineering for real client projects.
+                  I build reliable web applications using Laravel, React, Node.js, PHP, and MySQL. My experience includes CMS platforms, REST APIs, business systems, live deployments, and backend engineering for real client projects.
                 </p>
 
                 <div style={{ height: 1, background: 'rgba(255,255,255,0.06)' }} />
