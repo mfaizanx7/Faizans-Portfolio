@@ -314,9 +314,7 @@ export function RecruiterStatusBar() {
             {/* Right — actions */}
             <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
               <a
-                href={`https://mail.google.com/mail/u/0/?view=cm&fs=1&to=${meta.email}&su=Hiring%20Inquiry%20%E2%80%94%20Full-Stack%20Developer&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity.`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href={`mailto:${meta.email}?subject=Hiring%20Inquiry%20%E2%80%94%20Full-Stack%20Developer&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity.`}
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
                   height: 28, padding: '0 0.75rem',
