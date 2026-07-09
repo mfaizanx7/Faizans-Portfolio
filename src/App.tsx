@@ -4,9 +4,8 @@ import { Layout }      from '@/components/layout/Layout'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
 import { SkipLink, CVModal } from '@/components/ui'
 import { RecruiterModeProvider } from '@/context/RecruiterModeContext'
-import { meta } from '@/data'
+import { HomePage } from '@/pages/HomePage'
 
-const HomePage      = lazy(() => import('@/pages/HomePage').then(m => ({ default: m.HomePage })))
 const CaseStudyPage = lazy(() => import('@/pages/CaseStudyPage').then(m => ({ default: m.CaseStudyPage })))
 const NotFoundPage  = lazy(() => import('@/pages/NotFoundPage').then(m => ({ default: m.NotFoundPage })))
 
