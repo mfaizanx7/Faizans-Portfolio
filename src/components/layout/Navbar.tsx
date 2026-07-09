@@ -78,7 +78,7 @@ export function Navbar() {
 
           {/* ── Desktop nav ── */}
           <nav aria-label="Main navigation" className="desktop-nav">
-            <div style={{ display: 'flex', alignItems: 'center', gap: '0.125rem' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.125rem', margin: '0 1.5rem' }}>
               {navItems.map(item => {
                 const isActive = activeSection === item.sectionId
                 return (
@@ -91,30 +91,18 @@ export function Navbar() {
                       fontSize: 'var(--text-sm)', fontWeight: 500,
                       color: isActive ? 'var(--color-text)' : 'var(--color-muted)',
                       borderRadius: 'var(--radius-md)',
-                      background: isActive ? 'rgba(255,255,255,0.06)' : 'transparent',
-                      transition: 'color 150ms ease, background 150ms ease',
+                      background: 'transparent',
+                      transition: 'color 150ms ease',
                       letterSpacing: '-0.01em',
-                      position: 'relative',
                     }}
                     onMouseEnter={e => {
                       e.currentTarget.style.color = 'var(--color-text)'
-                      e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
                     }}
                     onMouseLeave={e => {
                       e.currentTarget.style.color = isActive ? 'var(--color-text)' : 'var(--color-muted)'
-                      e.currentTarget.style.background = isActive ? 'rgba(255,255,255,0.06)' : 'transparent'
                     }}
                   >
                     {item.label}
-                    {isActive && (
-                      <span style={{
-                        position: 'absolute', bottom: 2, left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: 4, height: 4, borderRadius: '50%',
-                        background: 'var(--color-accent)',
-                        display: 'block',
-                      }} />
-                    )}
                   </a>
                 )
               })}
