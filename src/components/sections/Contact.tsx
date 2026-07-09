@@ -648,7 +648,7 @@ export function Contact() {
               }}>
                 {TRUST_ITEMS.map(item => (
                   <div key={item} style={{ display: 'flex', gap: '0.5rem', alignItems: 'center' }}>
-                    <span style={{ color: '#34D399', fontSize: 10, flexShrink: 0 }}>✔</span>
+                    <FiCheck size={11} color="#34D399" style={{ flexShrink: 0 }} />
                     <span style={{ fontSize: '12px', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em' }}>
                       {item}
                     </span>

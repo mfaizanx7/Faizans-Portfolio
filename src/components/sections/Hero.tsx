@@ -261,7 +261,7 @@ export function Hero() {
 
       <style>{`
         .hero-container {
-          padding-top: 6rem;
+          padding-top: 4.5rem;
           padding-bottom: 6rem;
           width: 100%;
         }
@@ -500,14 +500,14 @@ export function Hero() {
 
         @media (max-width: 1023px) {
           .hero-container {
-            padding-top: 5.5rem;
+            padding-top: 4rem;
             padding-bottom: 4.5rem;
           }
         }
 
         @media (max-width: 640px) {
           .hero-container {
-            padding-top: 5rem;
+            padding-top: 3.5rem;
             padding-bottom: 3.5rem;
           }
           .hero-cta-divider { display: none; }
