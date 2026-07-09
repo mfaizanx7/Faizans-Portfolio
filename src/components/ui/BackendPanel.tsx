@@ -1,5 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
+import { useRecruiterMode } from '@/context/RecruiterModeContext'
+import { meta } from '@/data'
+import { FileText } from 'lucide-react'
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -44,6 +47,42 @@ function SectionLabel({ children, live }: { children: string; live?: boolean }) 
   )
 }
 
+// ── Recruiter metrics ─────────────────────────────────────────────────────────
+const RECRUITER_METRICS = [
+  { label: 'Notice Period',    value: '0 Days',                   color: '#34D399' },
+  { label: 'Projects Shipped', value: '4 Live',                   color: '#60A5FA' },
+  { label: 'Preferred Role',   value: 'Full-Stack / Backend',     color: '#A78BFA' },
+  { label: 'Work Type',        value: 'Remote / Onsite / Hybrid', color: '#F97316' },
+  { label: 'Core Stack',       value: 'Laravel · React · MySQL',  color: '#34D399' },
+]
+
+function RecruiterMetrics() {
+  return (
+    <div style={{ padding: '0.25rem 0' }}>
+      {RECRUITER_METRICS.map((row, i) => (
+        <motion.div
+          key={row.label}
+          initial={{ opacity: 0, x: 8 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.3, delay: i * 0.07, ease: EASE }}
+          style={{
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            padding: '0.32rem 1rem',
+            borderBottom: i < RECRUITER_METRICS.length - 1 ? '1px solid rgba(255,255,255,0.03)' : 'none',
+          }}
+        >
+          <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.35)', letterSpacing: '0.01em' }}>
+            {row.label}
+          </span>
+          <span style={{ fontSize: 10.5, fontFamily: 'var(--font-mono)', color: row.color, letterSpacing: '0.02em', fontWeight: 600, flexShrink: 0 }}>
+            {row.value}
+          </span>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
 // ── Experience indicators — real data ─────────────────────────────────────────
 const EXP_ROWS = [
   { label: 'Production Applications',  value: '3 Shipped',      color: '#34D399' },
@@ -80,18 +119,18 @@ function ExperienceRows() {
   )
 }
 
-// ── Live API request stream — real Laravel-style endpoints ────────────────────
+// ── Live API request stream ───────────────────────────────────────────────────
 const ENDPOINTS = [
-  { method: 'GET',    path: '/api/products',           status: 200 },
-  { method: 'POST',   path: '/api/auth/login',         status: 200 },
-  { method: 'GET',    path: '/api/cms/pages',          status: 200 },
-  { method: 'PUT',    path: '/api/users/42',           status: 200 },
-  { method: 'POST',   path: '/api/orders/store',       status: 201 },
-  { method: 'GET',    path: '/api/reports/monthly',    status: 200 },
-  { method: 'DELETE', path: '/api/sessions/expire',    status: 204 },
-  { method: 'POST',   path: '/api/queue/dispatch',     status: 202 },
-  { method: 'GET',    path: '/api/media/gallery',      status: 200 },
-  { method: 'PUT',    path: '/api/cms/content/7',      status: 200 },
+  { method: 'GET',    path: '/api/products',        status: 200 },
+  { method: 'POST',   path: '/api/auth/login',      status: 200 },
+  { method: 'GET',    path: '/api/cms/pages',       status: 200 },
+  { method: 'PUT',    path: '/api/users/42',        status: 200 },
+  { method: 'POST',   path: '/api/orders/store',    status: 201 },
+  { method: 'GET',    path: '/api/reports/monthly', status: 200 },
+  { method: 'DELETE', path: '/api/sessions/expire', status: 204 },
+  { method: 'POST',   path: '/api/queue/dispatch',  status: 202 },
+  { method: 'GET',    path: '/api/media/gallery',   status: 200 },
+  { method: 'PUT',    path: '/api/cms/content/7',   status: 200 },
 ]
 
 const METHOD_COLOR: Record<string, string> = {
@@ -167,19 +206,19 @@ function RequestStream() {
 
 // ── Stack / environment strip ─────────────────────────────────────────────────
 const ENV_ITEMS = [
-  { label: 'Laravel 11',  color: 'rgba(249,115,22,0.7)'  },
-  { label: 'PHP 8.2',     color: 'rgba(129,140,248,0.6)' },
-  { label: 'MySQL 8',     color: 'rgba(52,211,153,0.6)'  },
-  { label: 'React 18',    color: 'rgba(96,165,250,0.6)'  },
+  { label: 'Laravel 11',  color: 'rgba(249,115,22,0.7)'   },
+  { label: 'PHP 8.2',     color: 'rgba(129,140,248,0.6)'  },
+  { label: 'MySQL 8',     color: 'rgba(52,211,153,0.6)'   },
+  { label: 'React 18',    color: 'rgba(96,165,250,0.6)'   },
   { label: 'Node 20',     color: 'rgba(255,255,255,0.28)' },
 ]
 
 // ── Deployment status row ─────────────────────────────────────────────────────
 const DEPLOY_ROWS = [
-  { label: 'Git Version',        value: 'v2.x · main',   dot: '#34D399' },
-  { label: 'SSL / DNS',          value: 'Configured',    dot: '#34D399' },
-  { label: 'Deployment Target',  value: 'cPanel · VPS',  dot: '#60A5FA' },
-  { label: 'Environment',        value: 'Production',    dot: '#F97316' },
+  { label: 'Git Version',       value: 'v2.x · main',  dot: '#34D399' },
+  { label: 'SSL / DNS',         value: 'Configured',   dot: '#34D399' },
+  { label: 'Deployment Target', value: 'cPanel · VPS', dot: '#60A5FA' },
+  { label: 'Environment',       value: 'Production',   dot: '#F97316' },
 ]
 
 function DeployRows() {
@@ -209,9 +248,134 @@ function DeployRows() {
   )
 }
 
+// ── Recruiter Status Bar ─────────────────────────────────────────────────────
+export function RecruiterStatusBar() {
+  const { isRecruiterMode, toggle } = useRecruiterMode()
+
+  function openCVModal() { window.dispatchEvent(new Event('open-cv-modal')) }
+
+  return (
+    <AnimatePresence>
+      {isRecruiterMode && (
+        <motion.div
+          initial={{ y: 56, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 56, opacity: 0 }}
+          transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            position: 'fixed', bottom: 0, left: 0, right: 0, zIndex: 9000,
+            background: 'rgba(9,9,11,0.97)',
+            borderTop: '1px solid rgba(59,130,246,0.2)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+          }}
+        >
+          {/* glow line */}
+          <div style={{
+            position: 'absolute', top: -1, left: 0, right: 0, height: 1,
+            background: 'linear-gradient(90deg, transparent, #3b82f6 30%, #93c5fd 50%, #3b82f6 70%, transparent)',
+            opacity: 0.8, pointerEvents: 'none',
+          }} />
+
+          <div style={{
+            maxWidth: 'var(--container-max)', margin: '0 auto',
+            padding: '0.45rem 1.5rem',
+            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+            gap: '1rem', flexWrap: 'wrap',
+          }}>
+
+            {/* Left — pills */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', flexWrap: 'wrap' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '0.35rem' }}>
+                <span style={{
+                  width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', flexShrink: 0,
+                  boxShadow: '0 0 8px rgba(59,130,246,0.9)',
+                  animation: 'rsb-pulse 1.4s ease-in-out infinite',
+                }} />
+                <span style={{ fontSize: 11, fontWeight: 700, color: '#60a5fa', fontFamily: 'var(--font-mono)', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+                  Recruiter Mode
+                </span>
+              </div>
+              <span style={{ color: 'rgba(255,255,255,0.12)', fontSize: 12 }}>|</span>
+              {[
+                { label: 'Notice Period', value: '0 Days',              color: '#34D399' },
+                { label: 'Available',     value: 'Immediately',         color: '#34D399' },
+                { label: 'Stack',         value: 'Laravel · React · MySQL', color: '#60a5fa' },
+                { label: 'Work Type',     value: 'Remote · Onsite',     color: '#a78bfa' },
+              ].map((item, i, arr) => (
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
+                  <span style={{ fontSize: 10, color: 'rgba(255,255,255,0.28)', fontFamily: 'var(--font-mono)' }}>{item.label}:</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color: item.color, fontFamily: 'var(--font-mono)' }}>{item.value}</span>
+                  {i < arr.length - 1 && <span style={{ color: 'rgba(255,255,255,0.1)', marginLeft: '0.2rem' }}>·</span>}
+                </div>
+              ))}
+            </div>
+
+            {/* Right — actions */}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexShrink: 0 }}>
+              <a
+                href={`mailto:${meta.email}?subject=Hiring%20Inquiry%20%E2%80%94%20Full-Stack%20Developer&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity.`}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                  height: 28, padding: '0 0.75rem',
+                  fontSize: 11, fontWeight: 600, color: '#fff',
+                  background: 'var(--color-accent)',
+                  borderRadius: 6, textDecoration: 'none',
+                  boxShadow: '0 0 12px rgba(59,130,246,0.4)',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                ✉ I'm Interested
+              </a>
+              <button
+                onClick={openCVModal}
+                style={{
+                  display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                  height: 28, padding: '0 0.7rem',
+                  fontSize: 11, fontWeight: 500,
+                  color: 'rgba(255,255,255,0.55)',
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                <FileText size={10} strokeWidth={2} /> Resume
+              </button>
+              <button
+                onClick={toggle}
+                title="Exit Recruiter Mode"
+                style={{
+                  display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                  width: 28, height: 28,
+                  fontSize: 16, lineHeight: 1,
+                  color: 'rgba(255,255,255,0.25)',
+                  background: 'transparent',
+                  border: '1px solid rgba(255,255,255,0.08)',
+                  borderRadius: 6, cursor: 'pointer', fontFamily: 'inherit',
+                }}
+              >
+                ×
+              </button>
+            </div>
+          </div>
+
+          <style>{`
+            @keyframes rsb-pulse {
+              0%, 100% { opacity: 1; box-shadow: 0 0 8px rgba(59,130,246,0.9); }
+              50%       { opacity: 0.4; box-shadow: none; }
+            }
+          `}</style>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}
+
 // ── Main component ────────────────────────────────────────────────────────────
 export function BackendPanel() {
   const reduced = useReducedMotion()
+  const { isRecruiterMode } = useRecruiterMode()
 
   return (
     <motion.div
@@ -230,73 +394,93 @@ export function BackendPanel() {
           <div style={{
             position: 'absolute', inset: -1,
             borderRadius: 16,
-            background: 'radial-gradient(ellipse at 60% 0%, rgba(59,130,246,0.07) 0%, transparent 65%)',
+            background: isRecruiterMode
+              ? 'radial-gradient(ellipse at 60% 0%, rgba(59,130,246,0.12) 0%, transparent 65%)'
+              : 'radial-gradient(ellipse at 60% 0%, rgba(59,130,246,0.07) 0%, transparent 65%)',
             pointerEvents: 'none',
+            transition: 'background 400ms ease',
           }} />
 
           <div style={{
             background: 'rgba(10,10,13,0.94)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            border: `1px solid ${isRecruiterMode ? 'rgba(59,130,246,0.18)' : 'rgba(255,255,255,0.07)'}`,
             borderRadius: 14,
             overflow: 'hidden',
             boxShadow: [
               '0 0 0 1px rgba(255,255,255,0.03)',
               '0 24px 64px rgba(0,0,0,0.65)',
-              '0 0 60px rgba(59,130,246,0.05)',
+              isRecruiterMode ? '0 0 60px rgba(59,130,246,0.1)' : '0 0 60px rgba(59,130,246,0.05)',
             ].join(', '),
+            transition: 'border-color 400ms ease, box-shadow 400ms ease',
           }}>
 
             {/* ── Header ── */}
             <div style={{
               display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-              padding: '0 1rem',
-              height: 44,
+              padding: '0 1rem', height: 44,
               background: 'rgba(255,255,255,0.02)',
               borderBottom: '1px solid rgba(255,255,255,0.06)',
             }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem' }}>
-                <PulseDot color="#34D399" />
+                <PulseDot color={isRecruiterMode ? '#60A5FA' : '#34D399'} />
                 <div>
                   <div style={{ fontSize: 11.5, fontWeight: 600, color: 'rgba(255,255,255,0.8)', letterSpacing: '-0.01em', lineHeight: 1.2 }}>
-                    Production Console
+                    {isRecruiterMode ? 'Recruiter Summary' : 'Production Console'}
                   </div>
                   <div style={{ fontSize: 9.5, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.22)', letterSpacing: '0.02em', lineHeight: 1.2 }}>
-                    Laravel · React · MySQL · REST API
+                    {isRecruiterMode ? 'M. Faizan Khan · Full-Stack Developer' : 'Laravel · React · MySQL · REST API'}
                   </div>
                 </div>
               </div>
               <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
-                <span style={{
-                  fontSize: 9, fontFamily: 'var(--font-mono)',
-                  color: 'rgba(255,255,255,0.2)', letterSpacing: '0.04em',
-                }}>
-                  env:prod
+                <span style={{ fontSize: 9, fontFamily: 'var(--font-mono)', color: 'rgba(255,255,255,0.2)', letterSpacing: '0.04em' }}>
+                  {isRecruiterMode ? 'mode:recruiter' : 'env:prod'}
                 </span>
                 <span style={{
                   fontSize: 9.5, fontFamily: 'var(--font-mono)', fontWeight: 700,
-                  color: '#34D399',
-                  background: 'rgba(52,211,153,0.1)',
-                  border: '1px solid rgba(52,211,153,0.2)',
-                  borderRadius: 5,
-                  padding: '2px 7px',
-                  letterSpacing: '0.05em',
+                  color: isRecruiterMode ? '#60A5FA' : '#34D399',
+                  background: isRecruiterMode ? 'rgba(96,165,250,0.1)' : 'rgba(52,211,153,0.1)',
+                  border: `1px solid ${isRecruiterMode ? 'rgba(96,165,250,0.2)' : 'rgba(52,211,153,0.2)'}`,
+                  borderRadius: 5, padding: '2px 7px', letterSpacing: '0.05em',
+                  transition: 'all 300ms ease',
                 }}>
-                  LIVE
+                  {isRecruiterMode ? 'HIRE' : 'LIVE'}
                 </span>
               </div>
             </div>
 
-            {/* ── Experience indicators ── */}
-            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-              <SectionLabel>Engineering Experience</SectionLabel>
-              <ExperienceRows />
-            </div>
+            {/* ── Top section: swap between recruiter metrics and experience rows ── */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isRecruiterMode ? 'recruiter' : 'normal'}
+                initial={{ opacity: 0, filter: 'blur(4px)' }}
+                animate={{ opacity: 1, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, filter: 'blur(4px)' }}
+                transition={{ duration: 0.3 }}
+                style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}
+              >
+                <SectionLabel live={!isRecruiterMode}>
+                  {isRecruiterMode ? 'Recruiter Metrics' : 'Engineering Experience'}
+                </SectionLabel>
+                {isRecruiterMode ? <RecruiterMetrics /> : <ExperienceRows />}
+              </motion.div>
+            </AnimatePresence>
 
-            {/* ── Live request stream ── */}
-            <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
-              <SectionLabel live>API Request Stream</SectionLabel>
-              <RequestStream />
-            </div>
+            {/* ── API stream — hidden in recruiter mode ── */}
+            <AnimatePresence>
+              {!isRecruiterMode && (
+                <motion.div
+                  initial={{ opacity: 0, height: 0 }}
+                  animate={{ opacity: 1, height: 'auto' }}
+                  exit={{ opacity: 0, height: 0 }}
+                  transition={{ duration: 0.3 }}
+                  style={{ borderBottom: '1px solid rgba(255,255,255,0.05)', overflow: 'hidden' }}
+                >
+                  <SectionLabel live>API Request Stream</SectionLabel>
+                  <RequestStream />
+                </motion.div>
+              )}
+            </AnimatePresence>
 
             {/* ── Deployment status ── */}
             <div style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>

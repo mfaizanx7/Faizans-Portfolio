@@ -1,8 +1,54 @@
-import { motion, useReducedMotion } from 'framer-motion'
+import { motion, useReducedMotion, AnimatePresence } from 'framer-motion'
 import { ArrowRight, FileText } from 'lucide-react'
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import { BackendPanel } from '@/components/ui'
 import { meta } from '@/data'
+import { useRecruiterMode } from '@/context/RecruiterModeContext'
+import { useEffect, useState } from 'react'
+
+const RECRUITER_BULLETS = [
+  { icon: '⚡', label: 'Role',         text: 'Full-Stack Developer',      sub: 'Laravel · React · Node.js · MySQL' },
+  { icon: '🚀', label: 'Shipped',      text: '4 Production Projects',     sub: 'Live · Client-facing · Real users' },
+  { icon: '🔧', label: 'Builds',       text: 'APIs · CMS · Admin Panels', sub: 'REST · Blade · React frontends'   },
+  { icon: '🎓', label: 'Education',    text: 'BS Computer Science',       sub: 'In progress · Islamabad'          },
+  { icon: '✅', label: 'Availability', text: 'Available Immediately',     sub: 'Remote · Onsite · Hybrid'         },
+]
+
+const STATUS_TEXT = '> RECRUITER_VIEW.exe — initializing...'
+
+function TypewriterStatus() {
+  const [displayed, setDisplayed] = useState('')
+  useEffect(() => {
+    setDisplayed('')
+    let i = 0
+    const t = setInterval(() => {
+      i++
+      setDisplayed(STATUS_TEXT.slice(0, i))
+      if (i >= STATUS_TEXT.length) clearInterval(t)
+    }, 28)
+    return () => clearInterval(t)
+  }, [])
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: -6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      style={{
+        display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
+        padding: '0.3rem 0.75rem',
+        background: 'rgba(59,130,246,0.07)',
+        border: '1px solid rgba(59,130,246,0.2)',
+        borderRadius: 6,
+        marginBottom: '1rem',
+      }}
+    >
+      <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#3b82f6', flexShrink: 0, boxShadow: '0 0 8px rgba(59,130,246,0.8)', animation: 'rm-blink 1s step-end infinite' }} />
+      <span style={{ fontSize: 11, fontFamily: 'var(--font-mono)', color: '#60a5fa', letterSpacing: '0.04em' }}>
+        {displayed}<span style={{ animation: 'rm-blink 0.8s step-end infinite', opacity: displayed.length < STATUS_TEXT.length ? 1 : 0 }}>▋</span>
+      </span>
+    </motion.div>
+  )
+}
 
 const EASE = [0.16, 1, 0.3, 1] as const
 
@@ -27,6 +73,7 @@ function openCVModal() {
 
 export function Hero() {
   const reduced = useReducedMotion()
+  const { isRecruiterMode } = useRecruiterMode()
 
   return (
     <>
@@ -66,12 +113,22 @@ export function Hero() {
               animate="show"
               className="hero-left"
             >
-              {/* ── Availability badge ── */}
+              {/* ── Availability badge / Recruiter status ── */}
               <motion.div variants={reduced ? itemReduced : item} style={{ marginBottom: '1.75rem' }}>
-                <span className="avail-badge">
-                  <span className="avail-dot" />
-                  Available for Full-Time Opportunities
-                </span>
+                <AnimatePresence mode="wait">
+                  {isRecruiterMode ? (
+                    <TypewriterStatus key="recruiter" />
+                  ) : (
+                    <motion.span
+                      key="normal"
+                      initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                      className="avail-badge"
+                    >
+                      <span className="avail-dot" />
+                      Available for Full-Time Opportunities
+                    </motion.span>
+                  )}
+                </AnimatePresence>
               </motion.div>
 
               {/* ── Name ── */}
@@ -125,20 +182,48 @@ export function Hero() {
                 Building reliable web applications from database to deployment.
               </motion.p>
 
-              {/* ── Stack line ── */}
-              <motion.p
+              {/* ── Stack line / Recruiter bullets ── */}
+              <motion.div
                 variants={reduced ? itemReduced : item}
-                style={{
-                  fontSize: 'var(--text-sm)',
-                  fontWeight: 400,
-                  color: 'var(--color-muted)',
-                  letterSpacing: '-0.01em',
-                  marginBottom: '2.75rem',
-                  opacity: 0.75,
-                }}
+                style={{ marginBottom: '2.75rem' }}
               >
-                Laravel · React · PHP · Node.js · MySQL
-              </motion.p>
+                {isRecruiterMode ? (
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
+                    {RECRUITER_BULLETS.map((b, i) => (
+                      <motion.div
+                        key={i}
+                        initial={{ opacity: 0, x: -12 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.28, delay: i * 0.07, ease: EASE }}
+                        style={{
+                          display: 'flex', alignItems: 'center', gap: '0.75rem',
+                          padding: '0.45rem 0.75rem',
+                          background: 'rgba(59,130,246,0.04)',
+                          border: '1px solid rgba(59,130,246,0.1)',
+                          borderRadius: 8,
+                        }}
+                      >
+                        <span style={{ fontSize: 14, flexShrink: 0, lineHeight: 1 }}>{b.icon}</span>
+                        <div style={{ minWidth: 0 }}>
+                          <div style={{ display: 'flex', alignItems: 'center', gap: '0.4rem', flexWrap: 'wrap' }}>
+                            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'rgba(59,130,246,0.85)', flexShrink: 0, letterSpacing: '-0.01em' }}>{b.label}</span>
+                            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 400, color: 'rgba(255,255,255,0.4)', flexShrink: 0 }}>·</span>
+                            <span style={{ fontSize: 'var(--text-sm)', fontWeight: 600, color: 'rgba(255,255,255,0.9)', letterSpacing: '-0.01em' }}>{b.text}</span>
+                          </div>
+                          <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.35)', letterSpacing: '0.01em', marginTop: 2 }}>{b.sub}</div>
+                        </div>
+                      </motion.div>
+                    ))}
+                  </div>
+                ) : (
+                  <p style={{
+                    fontSize: 'var(--text-sm)', fontWeight: 400,
+                    color: 'var(--color-muted)', letterSpacing: '-0.01em', opacity: 0.75,
+                  }}>
+                    Laravel · React · PHP · Node.js · MySQL
+                  </p>
+                )}
+              </motion.div>
 
               {/* ── CTAs ── */}
               <motion.div
@@ -245,6 +330,10 @@ export function Hero() {
         @keyframes avail-pulse {
           0%, 100% { opacity: 1; }
           50%       { opacity: 0.4; }
+        }
+        @keyframes rm-blink {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0; }
         }
         @media (prefers-reduced-motion: reduce) {
           .avail-dot { animation: none; }

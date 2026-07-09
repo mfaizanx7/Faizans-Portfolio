@@ -1,10 +1,11 @@
 import { useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { FileText, Menu, X } from 'lucide-react'
+import { FileText, Menu, X, Briefcase } from 'lucide-react'
 import { Button } from '@/components/ui'
 import { navItems } from '@/data'
 import { useScrolled, useActiveSection } from '@/hooks'
+import { useRecruiterMode } from '@/context/RecruiterModeContext'
 
 const ease = [0.16, 1, 0.3, 1] as const
 
@@ -18,6 +19,7 @@ export function Navbar() {
   const scrolled      = useScrolled(24)
   const sectionIds    = navItems.map(n => n.sectionId)
   const activeSection = useActiveSection(sectionIds)
+  const { isRecruiterMode, toggle } = useRecruiterMode()
 
   if (pathname) { /* consumed */ }
 
@@ -30,15 +32,27 @@ export function Navbar() {
         style={{
           position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50,
           height: 'var(--navbar-h)',
-          background: scrolled ? 'rgba(9,9,11,0.92)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px) saturate(180%)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.07)' : '1px solid transparent',
+          background: isRecruiterMode
+            ? 'rgba(9,9,11,0.97)'
+            : scrolled ? 'rgba(9,9,11,0.92)' : 'transparent',
+          backdropFilter: scrolled || isRecruiterMode ? 'blur(20px) saturate(180%)' : 'none',
+          WebkitBackdropFilter: scrolled || isRecruiterMode ? 'blur(20px) saturate(180%)' : 'none',
+          borderBottom: isRecruiterMode
+            ? '1px solid rgba(59,130,246,0.2)'
+            : scrolled ? '1px solid rgba(255,255,255,0.07)' : '1px solid transparent',
           transition: 'background 250ms ease, border-color 250ms ease',
           transform: 'translateZ(0)',
           willChange: 'transform',
         }}
       >
+        {/* Blue top accent line — only in recruiter mode */}
+        <div style={{
+          position: 'absolute', top: 0, left: 0, right: 0, height: 2,
+          background: 'linear-gradient(90deg, transparent 0%, #3b82f6 20%, #93c5fd 50%, #3b82f6 80%, transparent 100%)',
+          opacity: isRecruiterMode ? 1 : 0,
+          transition: 'opacity 500ms ease',
+          pointerEvents: 'none',
+        }} />
         <div
           className="container"
           style={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}
@@ -107,8 +121,59 @@ export function Navbar() {
             </div>
           </nav>
 
-          {/* ── Desktop right — Resume button ── */}
-          <div className="desktop-nav" style={{ flexShrink: 0 }}>
+          {/* ── Desktop right — Recruiter toggle + Resume button ── */}
+          <div className="desktop-nav" style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+            <button
+              onClick={toggle}
+              title={isRecruiterMode ? 'Back to normal view' : 'Switch to Recruiter Mode'}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                height: 32, padding: '0 0.875rem',
+                fontSize: 12, fontWeight: 700,
+                color: isRecruiterMode ? '#93c5fd' : 'rgba(255,255,255,0.7)',
+                background: isRecruiterMode
+                  ? 'rgba(59,130,246,0.15)'
+                  : 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(139,92,246,0.08) 100%)',
+                border: `1px solid ${isRecruiterMode ? 'rgba(59,130,246,0.55)' : 'rgba(59,130,246,0.25)'}`,
+                borderRadius: 8, cursor: 'pointer',
+                fontFamily: 'var(--font-mono)', letterSpacing: '0.04em',
+                transition: 'all 200ms ease',
+                whiteSpace: 'nowrap',
+                boxShadow: isRecruiterMode
+                  ? '0 0 16px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.06)'
+                  : '0 0 8px rgba(59,130,246,0.1), inset 0 1px 0 rgba(255,255,255,0.04)',
+                textTransform: 'uppercase',
+              }}
+              onMouseEnter={e => {
+                if (isRecruiterMode) {
+                  e.currentTarget.style.color = '#fff'
+                  e.currentTarget.style.background = 'rgba(59,130,246,0.1)'
+                  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.35)'
+                  e.currentTarget.style.boxShadow = 'none'
+                } else {
+                  e.currentTarget.style.color = '#93c5fd'
+                  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.5)'
+                  e.currentTarget.style.background = 'rgba(59,130,246,0.12)'
+                  e.currentTarget.style.boxShadow = '0 0 14px rgba(59,130,246,0.25)'
+                }
+              }}
+              onMouseLeave={e => {
+                if (isRecruiterMode) {
+                  e.currentTarget.style.color = '#93c5fd'
+                  e.currentTarget.style.background = 'rgba(59,130,246,0.15)'
+                  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.55)'
+                  e.currentTarget.style.boxShadow = '0 0 16px rgba(59,130,246,0.3), inset 0 1px 0 rgba(255,255,255,0.06)'
+                } else {
+                  e.currentTarget.style.color = 'rgba(255,255,255,0.7)'
+                  e.currentTarget.style.borderColor = 'rgba(59,130,246,0.25)'
+                  e.currentTarget.style.background = 'linear-gradient(135deg, rgba(59,130,246,0.08) 0%, rgba(139,92,246,0.08) 100%)'
+                  e.currentTarget.style.boxShadow = '0 0 8px rgba(59,130,246,0.1), inset 0 1px 0 rgba(255,255,255,0.04)'
+                }
+              }}
+            >
+              <Briefcase size={11} strokeWidth={2.5} />
+              {isRecruiterMode ? '← EXIT' : '[ RECRUITER ]'}
+            </button>
             <Button
               variant="secondary"
               size="sm"
@@ -120,33 +185,64 @@ export function Navbar() {
             </Button>
           </div>
 
-          {/* ── Mobile toggle ── */}
-          <button
-            className="mobile-toggle"
-            onClick={() => setMobileOpen(v => !v)}
-            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={mobileOpen}
-            style={{
-              display: 'none',
-              width: 36, height: 36,
-              alignItems: 'center', justifyContent: 'center',
-              borderRadius: 'var(--radius-md)',
-              color: 'var(--color-muted)',
-              background: 'transparent',
-              border: 'none', cursor: 'pointer',
-              transition: 'color 150ms ease, background 150ms ease',
-            }}
-            onMouseEnter={e => {
-              e.currentTarget.style.color = 'var(--color-text)'
-              e.currentTarget.style.background = 'rgba(255,255,255,0.06)'
-            }}
-            onMouseLeave={e => {
-              e.currentTarget.style.color = 'var(--color-muted)'
-              e.currentTarget.style.background = 'transparent'
-            }}
-          >
-            {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={2} />}
-          </button>
+          {/* ── Mobile right — recruiter + resume + burger ── */}
+          <div className="mobile-right" style={{ display: 'none', alignItems: 'center', gap: '0.4rem' }}>
+            {/* Recruiter Mode pill */}
+            <button
+              onClick={toggle}
+              title={isRecruiterMode ? 'Back to normal view' : 'Switch to Recruiter Mode'}
+              className="mobile-recruiter-btn"
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                height: 30, padding: '0 0.6rem',
+                fontSize: 11, fontWeight: 700,
+                color: isRecruiterMode ? '#93c5fd' : 'rgba(255,255,255,0.5)',
+                background: isRecruiterMode ? 'rgba(59,130,246,0.15)' : 'rgba(255,255,255,0.04)',
+                border: `1px solid ${isRecruiterMode ? 'rgba(59,130,246,0.55)' : 'rgba(255,255,255,0.1)'}`,
+                borderRadius: 8, cursor: 'pointer',
+                fontFamily: 'inherit', letterSpacing: '0.01em',
+                transition: 'all 200ms ease',
+                whiteSpace: 'nowrap',
+                boxShadow: isRecruiterMode ? '0 0 10px rgba(59,130,246,0.25)' : 'none',
+              }}
+            >
+              <Briefcase size={10} strokeWidth={2.5} />
+              {isRecruiterMode ? '← Exit' : 'Recruiter'}
+            </button>
+            {/* View Resume */}
+            <button
+              onClick={openCVModal}
+              style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                height: 30, padding: '0 0.6rem',
+                fontSize: 11, fontWeight: 500,
+                color: 'rgba(255,255,255,0.5)',
+                background: 'rgba(255,255,255,0.04)',
+                border: '1px solid rgba(255,255,255,0.1)',
+                borderRadius: 8, cursor: 'pointer',
+                fontFamily: 'inherit',
+                whiteSpace: 'nowrap',
+              }}
+            >
+              <FileText size={10} strokeWidth={2} /> Resume
+            </button>
+            {/* Burger */}
+            <button
+              onClick={() => setMobileOpen(v => !v)}
+              aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileOpen}
+              style={{
+                width: 34, height: 34,
+                display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
+                borderRadius: 'var(--radius-md)',
+                color: 'var(--color-muted)',
+                background: 'transparent',
+                border: 'none', cursor: 'pointer',
+              }}
+            >
+              {mobileOpen ? <X size={18} strokeWidth={2} /> : <Menu size={18} strokeWidth={2} />}
+            </button>
+          </div>
         </div>
       </header>
 
@@ -218,12 +314,15 @@ export function Navbar() {
       <style>{`
         @media (max-width: 767px) {
           .desktop-nav   { display: none !important; }
-          .mobile-toggle { display: flex !important; }
+          .mobile-right  { display: flex !important; }
         }
         .nav-brand-short { display: none; }
         @media (max-width: 400px) {
           .nav-brand-full  { display: none; }
           .nav-brand-short { display: inline; }
+        }
+        @media (max-width: 360px) {
+          .mobile-recruiter-btn { display: none !important; }
         }
       `}</style>
     </>

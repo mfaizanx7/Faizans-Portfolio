@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { FadeIn } from '@/components/ui'
+import { useRecruiterMode } from '@/context/RecruiterModeContext'
 
 const EXPERIENCES = [
   {
@@ -76,6 +77,7 @@ function TimelineDot({ index: _index }: { index: number }) {
 }
 
 export function Experience() {
+  const { isRecruiterMode } = useRecruiterMode()
 
   return (
     <section
@@ -87,7 +89,7 @@ export function Experience() {
 
         {/* ── Header ── */}
         <FadeIn>
-          <div style={{ marginBottom: '3rem' }}>
+          <div style={{ marginBottom: '3rem', display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: '1rem' }}>
             <h2 id="exp-heading" style={{
               fontSize: 'clamp(1.75rem, 3.5vw, 2.5rem)',
               fontWeight: 700, letterSpacing: '-0.04em',
@@ -95,6 +97,23 @@ export function Experience() {
             }}>
               Professional Experience
             </h2>
+            {isRecruiterMode && (
+              <span style={{
+                display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
+                padding: '0.25rem 0.65rem',
+                fontSize: 10, fontWeight: 600, letterSpacing: '0.06em', textTransform: 'uppercase',
+                color: '#60a5fa',
+                background: 'rgba(59,130,246,0.08)',
+                border: '1px solid rgba(59,130,246,0.2)',
+                borderRadius: 6,
+                fontFamily: 'var(--font-mono)',
+                flexShrink: 0,
+                alignSelf: 'center',
+              }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#60a5fa', flexShrink: 0 }} />
+                Recruiter View
+              </span>
+            )}
           </div>
         </FadeIn>
 
@@ -165,20 +184,22 @@ export function Experience() {
                       </div>
                     </div>
 
-                    {/* Summary */}
-                    <p style={{
-                      marginTop: '0.875rem',
-                      fontSize: 'var(--text-sm)',
-                      lineHeight: 1.7,
-                      color: 'var(--color-muted)',
-                      letterSpacing: '-0.01em',
-                      maxWidth: 560,
-                    }}>
-                      {exp.summary}
-                    </p>
+                    {/* Summary — hidden in recruiter mode */}
+                    {!isRecruiterMode && (
+                      <p style={{
+                        marginTop: '0.875rem',
+                        fontSize: 'var(--text-sm)',
+                        lineHeight: 1.7,
+                        color: 'var(--color-muted)',
+                        letterSpacing: '-0.01em',
+                        maxWidth: 560,
+                      }}>
+                        {exp.summary}
+                      </p>
+                    )}
 
                     {/* Projects + Highlights */}
-                    <div className="exp-detail-row" style={{ marginTop: '1.25rem' }}>
+                    <div className="exp-detail-row" style={{ marginTop: isRecruiterMode ? '0.75rem' : '1.25rem' }}>
 
                       <div>
                         <p style={{
@@ -219,17 +240,32 @@ export function Experience() {
                         }}>
                           Highlights
                         </p>
-                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '0.3rem' }}>
-                          {exp.highlights.map((h, j) => (
-                            <li key={j} style={{
-                              fontSize: 'var(--text-sm)',
-                              color: 'rgba(255,255,255,0.45)',
-                              letterSpacing: '-0.01em',
-                              display: 'flex', gap: '0.5rem', alignItems: 'baseline',
-                            }}>
-                              <span style={{ color: 'rgba(59,130,246,0.6)', flexShrink: 0, fontSize: 10 }}>•</span>
-                              {h}
-                            </li>
+                        <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: isRecruiterMode ? 'row' : 'column', flexWrap: 'wrap', gap: isRecruiterMode ? '0.35rem' : '0.3rem' }}>
+                          {(isRecruiterMode ? exp.highlights.slice(0, 2) : exp.highlights).map((h, j) => (
+                            isRecruiterMode ? (
+                              <li key={j} style={{
+                                fontSize: 11, fontWeight: 600,
+                                color: '#93c5fd',
+                                background: 'rgba(59,130,246,0.08)',
+                                border: '1px solid rgba(59,130,246,0.18)',
+                                borderRadius: 5,
+                                padding: '0.2rem 0.55rem',
+                                letterSpacing: '0.01em',
+                                whiteSpace: 'nowrap',
+                              }}>
+                                {h}
+                              </li>
+                            ) : (
+                              <li key={j} style={{
+                                fontSize: 'var(--text-sm)',
+                                color: 'rgba(255,255,255,0.45)',
+                                letterSpacing: '-0.01em',
+                                display: 'flex', gap: '0.5rem', alignItems: 'baseline',
+                              }}>
+                                <span style={{ color: 'rgba(59,130,246,0.6)', flexShrink: 0, fontSize: 10 }}>•</span>
+                                {h}
+                              </li>
+                            )
                           ))}
                         </ul>
                       </div>

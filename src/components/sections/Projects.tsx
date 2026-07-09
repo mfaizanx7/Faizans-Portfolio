@@ -4,6 +4,7 @@ import { ExternalLink, GitBranch, ArrowRight, ChevronLeft, ChevronRight, ZoomIn 
 import { Link } from 'react-router-dom'
 import { FadeIn, ImageGallery } from '@/components/ui'
 import { allProjects } from '@/data'
+import { useRecruiterMode } from '@/context/RecruiterModeContext'
 import type { Project } from '@/types'
 
 const EASE = [0.16, 1, 0.3, 1] as const
@@ -176,6 +177,7 @@ function CardCarousel({ images, title, onOpenGallery }: {
 function ProjectCard({ project, index }: { project: Project; index: number }) {
   const [galleryOpen, setGalleryOpen]   = useState(false)
   const [galleryStart, setGalleryStart] = useState(0)
+  const { isRecruiterMode } = useRecruiterMode()
 
   function openGallery(idx: number) {
     if (project.images.length === 0) return
@@ -193,14 +195,15 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
             height: '100%',
             display: 'flex',
             flexDirection: 'column',
-            background: 'rgba(255,255,255,0.028)',
-            border: '1px solid rgba(255,255,255,0.07)',
+            background: isRecruiterMode ? 'rgba(59,130,246,0.03)' : 'rgba(255,255,255,0.028)',
+            border: isRecruiterMode ? '1px solid rgba(59,130,246,0.18)' : '1px solid rgba(255,255,255,0.07)',
             borderRadius: 'var(--radius-2xl)',
             padding: '1.25rem',
             cursor: 'default',
             overflow: 'hidden',
             transform: 'translate3d(0,0,0)',
             willChange: 'transform',
+            transition: 'border-color 400ms ease, background 400ms ease',
           }}
         >
           {/* ── Carousel ── */}
@@ -269,11 +272,12 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
               <span key={tech} style={{
                 padding: '0.2rem 0.55rem',
                 fontSize: 'var(--text-xs)', fontFamily: 'var(--font-mono)',
-                color: 'var(--color-subtle)',
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.08)',
+                color: isRecruiterMode ? 'rgba(255,255,255,0.75)' : 'var(--color-subtle)',
+                background: isRecruiterMode ? 'rgba(59,130,246,0.08)' : 'rgba(255,255,255,0.05)',
+                border: isRecruiterMode ? '1px solid rgba(59,130,246,0.2)' : '1px solid rgba(255,255,255,0.08)',
                 borderRadius: 'var(--radius-md)',
                 letterSpacing: '0.01em', whiteSpace: 'nowrap',
+                transition: 'all 300ms ease',
               }}>
                 {tech}
               </span>
@@ -353,24 +357,24 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                 style={{
                   display: 'inline-flex', alignItems: 'center', gap: '0.35rem',
                   padding: '0.45rem 0.875rem',
-                  fontSize: 'var(--text-sm)', fontWeight: 500,
-                  color: 'rgba(255,255,255,0.5)',
-                  background: 'rgba(255,255,255,0.04)',
-                  border: '1px solid rgba(255,255,255,0.1)',
+                  fontSize: 'var(--text-sm)', fontWeight: isRecruiterMode ? 600 : 500,
+                  color: isRecruiterMode ? '#34D399' : 'rgba(255,255,255,0.5)',
+                  background: isRecruiterMode ? 'rgba(52,211,153,0.08)' : 'rgba(255,255,255,0.04)',
+                  border: isRecruiterMode ? '1px solid rgba(52,211,153,0.25)' : '1px solid rgba(255,255,255,0.1)',
                   borderRadius: 'var(--radius-md)',
                   textDecoration: 'none',
                   transition: 'color 150ms, background 150ms, border-color 150ms',
                   flexShrink: 0,
                 }}
                 onMouseEnter={e => {
-                  e.currentTarget.style.color = 'var(--color-text)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.08)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'
+                  e.currentTarget.style.color = isRecruiterMode ? '#6ee7b7' : 'var(--color-text)'
+                  e.currentTarget.style.background = isRecruiterMode ? 'rgba(52,211,153,0.14)' : 'rgba(255,255,255,0.08)'
+                  e.currentTarget.style.borderColor = isRecruiterMode ? 'rgba(52,211,153,0.4)' : 'rgba(255,255,255,0.2)'
                 }}
                 onMouseLeave={e => {
-                  e.currentTarget.style.color = 'rgba(255,255,255,0.5)'
-                  e.currentTarget.style.background = 'rgba(255,255,255,0.04)'
-                  e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'
+                  e.currentTarget.style.color = isRecruiterMode ? '#34D399' : 'rgba(255,255,255,0.5)'
+                  e.currentTarget.style.background = isRecruiterMode ? 'rgba(52,211,153,0.08)' : 'rgba(255,255,255,0.04)'
+                  e.currentTarget.style.borderColor = isRecruiterMode ? 'rgba(52,211,153,0.25)' : 'rgba(255,255,255,0.1)'
                 }}
               >
                 <ExternalLink size={12} strokeWidth={2} /> Live

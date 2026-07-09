@@ -1,11 +1,12 @@
 import { useState, useId } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload, FiChevronDown } from 'react-icons/fi'
+import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload, FiChevronDown, FiMail } from 'react-icons/fi'
 import { SiGmail } from 'react-icons/si'
 import emailjs from '@emailjs/browser'
 import { FadeIn } from '@/components/ui'
 import { meta } from '@/data'
 import { useCopyToClipboard } from '@/hooks'
+import { useRecruiterMode } from '@/context/RecruiterModeContext'
 
 const EJS_SERVICE  = 'service_8bb52ds'
 const EJS_TEMPLATE = 'template_ivnyi7n'
@@ -104,6 +105,7 @@ function onBlurInput(hasError: boolean) {
 export function Contact() {
   const uid = useId()
   const { copied, copy } = useCopyToClipboard(2000)
+  const { isRecruiterMode } = useRecruiterMode()
 
   const [form, setForm]       = useState<FormState>({ name: '', email: '', subject: '', message: '' })
   const [errors, setErrors]   = useState<FormErrors>({})
@@ -173,6 +175,49 @@ export function Contact() {
             }}>
               I'm open to Full-Stack Web Developer, Laravel Developer, PHP Developer, and Backend Developer opportunities. If you're hiring for clean web applications, CMS platforms, REST APIs, or business systems, let's connect.
             </p>
+
+            {/* Recruiter mode — quick action banner */}
+            <AnimatePresence>
+              {isRecruiterMode && (
+                <motion.div
+                  initial={{ opacity: 0, y: 8 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 8 }}
+                  transition={{ duration: 0.25 }}
+                  style={{
+                    marginTop: '1.5rem',
+                    display: 'flex', alignItems: 'center', gap: '0.75rem',
+                    flexWrap: 'wrap',
+                    padding: '0.875rem 1.25rem',
+                    background: 'rgba(59,130,246,0.06)',
+                    border: '1px solid rgba(59,130,246,0.2)',
+                    borderRadius: 'var(--radius-lg)',
+                  }}
+                >
+                  <span style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.6)', letterSpacing: '-0.01em', flex: 1 }}>
+                    Interested in hiring? Reach out directly:
+                  </span>
+                  <a
+                    href={`https://mail.google.com/mail/?view=cm&to=${meta.email}&su=Hiring%20Inquiry%20%E2%80%94%20Full-Stack%20Developer&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity.`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{
+                      display: 'inline-flex', alignItems: 'center', gap: '0.4rem',
+                      padding: '0.5rem 1.1rem',
+                      fontSize: 'var(--text-sm)', fontWeight: 600,
+                      color: '#fff',
+                      background: 'var(--color-accent)',
+                      borderRadius: 'var(--radius-md)',
+                      textDecoration: 'none',
+                      boxShadow: '0 0 16px rgba(59,130,246,0.35)',
+                      whiteSpace: 'nowrap', flexShrink: 0,
+                    }}
+                  >
+                    <FiMail size={13} /> I’m Interested
+                  </a>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </div>
         </FadeIn>
 
