@@ -180,23 +180,10 @@ export function Hero() {
                   <motion.div
                     initial={{ opacity: 0 }} animate={{ opacity: 1 }}
                     transition={{ duration: 0.25, ease: EASE }}
-                    style={{
-                      display: 'inline-flex', flexDirection: 'column', gap: '0.5rem',
-                      padding: '0.75rem 1rem',
-                      background: 'rgba(59,130,246,0.04)',
-                      border: '1px solid rgba(59,130,246,0.12)',
-                      borderRadius: 'var(--radius-lg)',
-                    }}
                   >
-                    <span style={{ fontSize: 'var(--text-xs)', fontWeight: 600, letterSpacing: '0.07em', textTransform: 'uppercase', color: 'var(--color-accent)' }}>
-                      Actively Seeking Roles
-                    </span>
-                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-muted)', letterSpacing: '-0.01em' }}>
-                      Full-Stack · Laravel · React · Node.js · MySQL
-                    </span>
-                    <span style={{ fontSize: 'var(--text-sm)', color: 'var(--color-muted)', letterSpacing: '-0.01em' }}>
-                      Remote · Onsite · Hybrid · Islamabad, Pakistan
-                    </span>
+                    <p style={{ fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.45)', letterSpacing: '-0.01em' }}>
+                      Laravel · React · Node.js · PHP · MySQL
+                    </p>
                   </motion.div>
                 ) : (
                   <p style={{
@@ -213,15 +200,17 @@ export function Hero() {
                 variants={reduced ? itemReduced : item}
                 style={{ display: 'flex', flexDirection: 'column', gap: '0.5rem' }}
               >
-                {/* Row 1 — primary actions */}
-                <div className="hero-cta-row">
+                {/* Primary row */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '0.5rem' }}>
                   <a href="#work" className="hero-btn-primary">
                     View Projects <ArrowRight size={13} strokeWidth={2.5} />
                   </a>
 
                   {isRecruiterMode && (
                     <a
-                      href={`mailto:${meta.email}?subject=Hiring%20Inquiry%20%E2%80%94%20Full-Stack%20Developer&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity.`}
+                      href="https://mail.google.com/mail/?view=cm&to=mfaizanx10%40gmail.com&su=Hiring%20Inquiry%20%E2%80%94%20Muhammad%20Faizan%20Khan&body=Hi%20Faizan%2C%0A%0AI%20came%20across%20your%20portfolio%20and%20I%27m%20interested%20in%20discussing%20an%20opportunity."
+                      target="_blank"
+                      rel="noopener noreferrer"
                       className="hero-btn-hire"
                     >
                       <Mail size={13} strokeWidth={2} /> Hire Me
@@ -232,29 +221,32 @@ export function Hero() {
                     <FileText size={13} strokeWidth={2} />
                     View Resume
                   </button>
+
+                  {!isRecruiterMode && <span aria-hidden className="hero-cta-divider" />}
+
+                  {!isRecruiterMode && (
+                    <a href={meta.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="hero-btn-github">
+                      <FaGithub size={14} /> GitHub
+                    </a>
+                  )}
+                  {!isRecruiterMode && (
+                    <a href={meta.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="hero-btn-linkedin">
+                      <FaLinkedin size={14} /> LinkedIn
+                    </a>
+                  )}
                 </div>
 
-                {/* Row 2 — social */}
-                <div className="hero-cta-row">
-                  <a
-                    href={meta.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="GitHub profile"
-                    className="hero-btn-github"
-                  >
-                    <FaGithub size={14} /> GitHub
-                  </a>
-                  <a
-                    href={meta.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label="LinkedIn profile"
-                    className="hero-btn-linkedin"
-                  >
-                    <FaLinkedin size={14} /> LinkedIn
-                  </a>
-                </div>
+                {/* Social row — recruiter mode only */}
+                {isRecruiterMode && (
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                    <a href={meta.github} target="_blank" rel="noopener noreferrer" aria-label="GitHub profile" className="hero-btn-github">
+                      <FaGithub size={14} /> GitHub
+                    </a>
+                    <a href={meta.linkedin} target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile" className="hero-btn-linkedin">
+                      <FaLinkedin size={14} /> LinkedIn
+                    </a>
+                  </div>
+                )}
               </motion.div>
             </motion.div>
 
@@ -321,13 +313,8 @@ export function Hero() {
           .avail-dot { animation: none; }
         }
 
-        /* CTA rows */
-        .hero-cta-row {
-          display: flex;
-          align-items: center;
-          gap: 0.5rem;
-          flex-wrap: nowrap;
-        }
+        /* CTA rows — unused */
+        .hero-cta-row { display: flex; align-items: center; gap: 0.5rem; }
 
         /* Primary CTA */
         .hero-btn-primary {
@@ -490,8 +477,13 @@ export function Hero() {
           background: rgba(255,255,255,0.04);
         }
 
-        /* Divider — unused, kept for safety */
-        .hero-cta-divider { display: none; }
+        /* Divider */
+        .hero-cta-divider {
+          display: block;
+          width: 1px; height: 20px;
+          background: rgba(255,255,255,0.08);
+          flex-shrink: 0;
+        }
 
         /* Panel hidden on mobile/tablet */
         .hero-panel { display: none; }
@@ -518,16 +510,14 @@ export function Hero() {
             padding-top: 5rem;
             padding-bottom: 3.5rem;
           }
-          .hero-cta-row {
-            flex-wrap: wrap;
-          }
+          .hero-cta-divider { display: none; }
           .hero-btn-primary,
-          .hero-btn-hire {
-            flex: 1 1 calc(50% - 0.25rem);
+          .hero-btn-hire,
+          .hero-btn-resume {
+            flex: 1 1 auto;
             justify-content: center;
             min-width: 0;
           }
-          .hero-btn-resume,
           .hero-btn-github,
           .hero-btn-linkedin {
             flex: 1 1 auto;
