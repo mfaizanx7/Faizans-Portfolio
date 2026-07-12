@@ -213,7 +213,7 @@ export function Hero() {
                       rel="noopener noreferrer"
                       className="hero-btn-hire"
                     >
-                      <Mail size={13} strokeWidth={2} /> Hire Me
+                      <Mail size={13} strokeWidth={2} /> Let's Connect
                     </a>
                   )}
 

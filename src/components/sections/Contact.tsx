@@ -213,7 +213,7 @@ export function Contact() {
                       whiteSpace: 'nowrap', flexShrink: 0,
                     }}
                   >
-                    <FiMail size={13} /> I’m Interested
+                    <FiMail size={13} /> Let's Connect
                   </a>
                 </motion.div>
               )}
