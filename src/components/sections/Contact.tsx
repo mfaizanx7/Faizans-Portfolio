@@ -257,7 +257,8 @@ export function Contact() {
                   <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em' }}>
                     Islamabad, Pakistan
                   </p>
-                  <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em', marginTop: '0.2rem' }}>
+                  <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em', marginTop: '0.2rem', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                    <img src="/images/air-university-logo-1.png" alt="" aria-hidden style={{ height: 14, width: 'auto', objectFit: 'contain', opacity: 0.7, flexShrink: 0 }} />
                     BS Computer Science · Air University · 2024–Present
                   </p>
                 </div>
