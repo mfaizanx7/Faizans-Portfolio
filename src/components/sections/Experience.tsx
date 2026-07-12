@@ -11,9 +11,9 @@ const EXPERIENCES = [
     location: 'Islamabad, Pakistan',
     summary: 'Delivered production-ready web applications for real clients, including a Laravel-to-React migration, custom CMS platforms, backend development, and production deployments.',
     projects: [
-      { label: 'Creative IT Website', slug: 'creative-it-park-website' },
-      { label: 'OD Sports',           slug: 'odsports-cms'            },
-      { label: 'Perfect Doors',       slug: 'perfect-doors-cms'       },
+      { label: 'Creative IT Website', slug: 'creative-it-park-website', logo: '/images/creativeitpark - logo/cip-light-logo.png' },
+      { label: 'OD Sports',           slug: 'odsports-cms',             logo: '/images/odsports - logo/od-sports-logo.png'        },
+      { label: 'Perfect Doors',       slug: 'perfect-doors-cms',        logo: '/images/perfectdoors - logo/logo.png'              },
     ],
     highlights: [
       'Full-Stack Web Development',
@@ -29,7 +29,7 @@ const EXPERIENCES = [
     location: 'Islamabad, Pakistan',
     summary: 'Supported production backend development for Pakistan’s PomPak financial literacy platform, contributing bug fixes, feature enhancements, and SQL Server–based application workflows.',
     projects: [
-      { label: 'PomPak Financial Literacy Platform', slug: 'pompak-financial-literacy' },
+      { label: 'PomPak Financial Literacy Platform', slug: 'pompak-financial-literacy', logo: '/images/pompak - logo/golmol-min-min.png' },
     ],
     highlights: [
       'Laravel & PHP Backend Development',
@@ -203,12 +203,21 @@ export function Experience() {
                                 textDecoration: 'none',
                                 letterSpacing: '-0.01em',
                                 transition: 'color 150ms',
-                                display: 'inline-flex', alignItems: 'center', gap: '0.3rem',
+                                display: 'inline-flex', alignItems: 'center',
+                                gap: exp.projects.length === 1 ? '0.3rem' : '0.5rem',
                               }}
                               onMouseEnter={e => (e.currentTarget.style.color = '#93c5fd')}
                               onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.5)')}
                             >
-                              <span style={{ opacity: 0.4, fontSize: 10 }}>↗</span>
+                              {/* Creative IT Park — 3 logos, fixed container for alignment */}
+                              {exp.projects.length > 1 && p.logo
+                                ? <span style={{ width: 48, height: 18, display: 'inline-flex', alignItems: 'center', flexShrink: 0 }}>
+                                    <img src={p.logo} alt="" aria-hidden style={{ maxHeight: 18, maxWidth: 48, objectFit: 'contain', objectPosition: 'left center', opacity: 0.85 }} />
+                                  </span>
+                                : exp.projects.length === 1 && p.logo
+                                ? <img src={p.logo} alt="" aria-hidden style={{ height: 16, width: 'auto', objectFit: 'contain', flexShrink: 0, opacity: 0.85 }} />
+                                : <span style={{ opacity: 0.4, fontSize: 10, flexShrink: 0 }}>↗</span>
+                              }
                               {p.label}
                             </Link>
                           ))}

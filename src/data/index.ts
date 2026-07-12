@@ -81,6 +81,7 @@ export const projects: Project[] = [
   {
     slug: 'creative-it-park-website',
     number: '01',
+    logoUrl: '/images/creativeitpark - logo/cip-light-logo.png',
     title: 'Creative IT Park Website',
     category: 'Corporate Platform',
     status: 'Production',
@@ -133,6 +134,7 @@ Deployment issue I hit and fixed:
   {
     slug: 'odsports-cms',
     number: '02',
+    logoUrl: '/images/odsports - logo/od-sports-logo.png',
     title: 'OD Sports',
     category: 'Sports Platform',
     status: 'Production',
@@ -189,6 +191,7 @@ Media upload pipeline (Intervention Image):
   {
     slug: 'perfect-doors-cms',
     number: '03',
+    logoUrl: '/images/perfectdoors - logo/logo.png',
     title: 'Perfect Doors Website',
     category: 'Product Management Platform',
     status: 'Production',
@@ -243,6 +246,7 @@ Result: updating a product description is one UPDATE — not one per variant. Ca
   {
     slug: 'pompak-financial-literacy',
     number: '04',
+    logoUrl: '/images/pompak - logo/golmol-min-min.png',
     title: 'PomPak Financial Literacy Platform',
     category: 'National Education Platform',
     status: 'Production',

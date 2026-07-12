@@ -1,7 +1,8 @@
 import { useState, useId } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FiGithub, FiLinkedin, FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload, FiChevronDown, FiMail } from 'react-icons/fi'
+import { FiCopy, FiCheck, FiSend, FiExternalLink, FiDownload, FiChevronDown, FiMail } from 'react-icons/fi'
 import { SiGmail } from 'react-icons/si'
+import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import emailjs from '@emailjs/browser'
 import { FadeIn } from '@/components/ui'
 import { meta } from '@/data'
@@ -256,6 +257,9 @@ export function Contact() {
                   <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em' }}>
                     Islamabad, Pakistan
                   </p>
+                  <p style={{ fontSize: 'var(--text-xs)', color: 'rgba(255,255,255,0.3)', letterSpacing: '-0.01em', marginTop: '0.2rem' }}>
+                    BS Computer Science · Air University · 2024–Present
+                  </p>
                 </div>
 
                 {/* Availability badge — recruiter mode only */}
@@ -319,10 +323,10 @@ export function Contact() {
                   </p>
                   <div style={{ display: 'flex', flexDirection: 'column', gap: '0.4rem' }}>
                     {[
-                      { label: 'Gmail',     href: `mailto:${meta.email}`, icon: <SiGmail size={12} />, external: false },
-                      { label: 'GitHub',    href: meta.github,            icon: <FiGithub size={12} />,    external: true  },
-                      { label: 'LinkedIn',  href: meta.linkedin,          icon: <FiLinkedin size={12} />,  external: true  },
-                      { label: 'Resume',    href: meta.resumeUrl,         icon: <FiExternalLink size={12}/>,external: true  },
+                      { label: 'Gmail',    href: `mailto:${meta.email}`, icon: <SiGmail size={13} />,      iconColor: '#EA4335', external: false },
+                      { label: 'GitHub',   href: meta.github,            icon: <FaGithub size={13} />,     iconColor: '#e6edf3', external: true  },
+                      { label: 'LinkedIn', href: meta.linkedin,          icon: <FaLinkedin size={13} />,   iconColor: '#0A66C2', external: true  },
+                      { label: 'Resume',   href: meta.resumeUrl,         icon: <FiExternalLink size={13}/>, iconColor: '#60A5FA', external: true  },
                     ].map(link => (
                       <a
                         key={link.label}
@@ -330,7 +334,7 @@ export function Contact() {
                         target={link.external ? '_blank' : undefined}
                         rel={link.external ? 'noopener noreferrer' : undefined}
                         style={{
-                          display: 'inline-flex', alignItems: 'center', gap: '0.45rem',
+                          display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
                           fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.4)',
                           transition: 'color 150ms ease', width: 'fit-content',
                           letterSpacing: '-0.01em',
@@ -338,7 +342,7 @@ export function Contact() {
                         onMouseEnter={e => (e.currentTarget.style.color = 'var(--color-text)')}
                         onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,255,255,0.4)')}
                       >
-                        {link.icon && <span style={{ flexShrink: 0 }}>{link.icon}</span>}
+                        <span style={{ flexShrink: 0, color: link.iconColor }}>{link.icon}</span>
                         {link.label}
                       </a>
                     ))}

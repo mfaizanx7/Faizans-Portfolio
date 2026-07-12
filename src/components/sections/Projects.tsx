@@ -249,13 +249,23 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           )}
 
           {/* ── Title ── */}
-          <h3 style={{
-            fontSize: 'var(--text-lg)', fontWeight: 700,
-            color: 'var(--color-text)', letterSpacing: '-0.03em',
-            lineHeight: 1.2, marginBottom: '0.625rem',
-          }}>
-            {project.title}
-          </h3>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.625rem', marginBottom: '0.625rem' }}>
+            {project.logoUrl && (
+              <img
+                src={project.logoUrl}
+                alt=""
+                aria-hidden
+                style={{ height: 20, width: 'auto', objectFit: 'contain', flexShrink: 0, opacity: 0.85 }}
+              />
+            )}
+            <h3 style={{
+              fontSize: 'var(--text-lg)', fontWeight: 700,
+              color: 'var(--color-text)', letterSpacing: '-0.03em',
+              lineHeight: 1.2,
+            }}>
+              {project.title}
+            </h3>
+          </div>
 
           {/* ── Description ── */}
           <p style={{

@@ -8,6 +8,7 @@ export interface Challenge {
 export interface Project {
   slug: string
   number: string
+  logoUrl?: string
   title: string
   category: string
   status: string

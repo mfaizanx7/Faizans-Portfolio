@@ -466,14 +466,23 @@ export function CaseStudyPage() {
           </div>
 
           {/* Title */}
-          <h1 style={{
-            fontSize: 'clamp(2rem, 5vw, 3.25rem)',
-            fontWeight: 700, letterSpacing: '-0.04em',
-            color: 'var(--color-text)', lineHeight: 1.08,
-            marginBottom: '1.125rem',
-          }}>
-            {project.title}
-          </h1>
+          <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '1.125rem', flexWrap: 'wrap' }}>
+            {project.logoUrl && (
+              <img
+                src={project.logoUrl}
+                alt=""
+                aria-hidden
+                style={{ height: 32, width: 'auto', objectFit: 'contain', flexShrink: 0, opacity: 0.9 }}
+              />
+            )}
+            <h1 style={{
+              fontSize: 'clamp(2rem, 5vw, 3.25rem)',
+              fontWeight: 700, letterSpacing: '-0.04em',
+              color: 'var(--color-text)', lineHeight: 1.08,
+            }}>
+              {project.title}
+            </h1>
+          </div>
 
           {/* Summary */}
           <p style={{

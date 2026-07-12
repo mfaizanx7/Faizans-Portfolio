@@ -30,16 +30,25 @@ export function CaseStudyHeader({ project }: CaseStudyHeaderProps) {
       </p>
 
       {/* Title */}
-      <h1 style={{
-        fontSize: 'clamp(1.8rem, 4.5vw, 2.75rem)',
-        fontWeight: 700,
-        color: 'var(--color-text)',
-        letterSpacing: '-0.03em',
-        lineHeight: 1.1,
-        marginBottom: '0.875rem',
-      }}>
-        {project.title}
-      </h1>
+      <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', marginBottom: '0.875rem' }}>
+        {project.logoUrl && (
+          <img
+            src={project.logoUrl}
+            alt=""
+            aria-hidden
+            style={{ height: 28, width: 'auto', objectFit: 'contain', flexShrink: 0, opacity: 0.9 }}
+          />
+        )}
+        <h1 style={{
+          fontSize: 'clamp(1.8rem, 4.5vw, 2.75rem)',
+          fontWeight: 700,
+          color: 'var(--color-text)',
+          letterSpacing: '-0.03em',
+          lineHeight: 1.1,
+        }}>
+          {project.title}
+        </h1>
+      </div>
 
       {/* Tagline */}
       <p style={{
