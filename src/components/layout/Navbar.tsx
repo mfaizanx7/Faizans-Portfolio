@@ -278,9 +278,7 @@ export function Navbar() {
                       onMouseLeave={e => (e.currentTarget.style.color = isActive ? 'var(--color-text)' : 'var(--color-muted)')}
                     >
                       {item.label}
-                      {isActive && (
-                        <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--color-accent)', flexShrink: 0 }} />
-                      )}
+
                     </motion.a>
                   )
                 })}
