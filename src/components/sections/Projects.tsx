@@ -387,7 +387,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
                   e.currentTarget.style.borderColor = isRecruiterMode ? 'rgba(52,211,153,0.25)' : 'rgba(255,255,255,0.1)'
                 }}
               >
-                <ExternalLink size={12} strokeWidth={2} /> Live
+                <ExternalLink size={12} strokeWidth={2} />
+                <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#34D399', boxShadow: '0 0 6px rgba(52,211,153,0.7)', animation: 'live-pulse 2.4s ease-in-out infinite', flexShrink: 0 }} />
+                Live
               </a>
             )}
           </div>
@@ -451,6 +453,10 @@ export function Projects() {
           .projects-grid { grid-template-columns: 1fr; }
         }
         .card-img:hover { transform: scale(1.03); }
+        @keyframes live-pulse {
+          0%, 100% { opacity: 1; }
+          50%       { opacity: 0.35; }
+        }
       `}</style>
     </section>
   )

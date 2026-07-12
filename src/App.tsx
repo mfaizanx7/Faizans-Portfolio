@@ -2,6 +2,7 @@ import { lazy, Suspense, useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Layout }      from '@/components/layout/Layout'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
+import { ScrollProgressBar } from '@/components/layout/ScrollProgressBar'
 import { SkipLink, CVModal } from '@/components/ui'
 import { RecruiterModeProvider } from '@/context/RecruiterModeContext'
 import { meta } from '@/data'
@@ -44,6 +45,7 @@ export default function App() {
       <RecruiterModeProvider>
       <SkipLink />
       <ScrollToTop />
+      <ScrollProgressBar />
       <Layout>
         <Suspense fallback={<PageLoader />}>
           <Routes>

@@ -29,6 +29,16 @@ export function RecruiterModeProvider({ children }: { children: React.ReactNode 
   useEffect(() => () => { if (scanTimer.current) clearTimeout(scanTimer.current) }, [])
 
   useEffect(() => {
+    function onKey(e: KeyboardEvent) {
+      const tag = (e.target as HTMLElement).tagName
+      if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
+      if (e.key === 'r' || e.key === 'R') toggle()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [toggle])
+
+  useEffect(() => {
     document.title = isRecruiterMode
       ? 'Muhammad Faizan Khan — Hiring'
       : 'Muhammad Faizan Khan — Full-Stack Developer'

@@ -369,8 +369,8 @@ export function Contact() {
                       transition: 'all 200ms ease', width: '100%',
                     }}
                   >
+                    mfaizanx10@gmail.com
                     {copied ? <FiCheck size={13} /> : <FiCopy size={13} />}
-                    {copied ? 'Email Copied!' : 'Copy Gmail'}
                   </button>
 
                   <div>
