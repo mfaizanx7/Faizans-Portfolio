@@ -5,7 +5,7 @@ import { meta, navItems } from '@/data'
 const connectLinks = [
   { label: 'GitHub',   href: meta.github,                   icon: <FaGithub size={13} style={{ color: '#e6edf3' }} />,   external: true  },
   { label: 'LinkedIn', href: meta.linkedin,                 icon: <FaLinkedin size={13} style={{ color: '#0A66C2' }} />, external: true  },
-  { label: 'WhatsApp', href: 'https://wa.me/923430559742',  icon: <FaWhatsapp size={13} style={{ color: '#25D366' }} />, external: true  },
+  { label: 'WhatsApp', href: 'https://wa.me/923430559742?text=Hi%20Faizan%2C%20I%20came%20across%20your%20portfolio%20and%20would%20like%20to%20connect.',  icon: <FaWhatsapp size={13} style={{ color: '#25D366' }} />, external: true  },
   { label: 'Gmail',    href: `mailto:${meta.email}`,        icon: <SiGmail size={13} style={{ color: '#EA4335' }} />,    external: false },
 ]
 
