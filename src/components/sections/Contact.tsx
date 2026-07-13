@@ -369,8 +369,7 @@ export function Contact() {
                       transition: 'all 200ms ease', width: '100%',
                     }}
                   >
-                    mfaizanx10@gmail.com
-                    {copied ? <FiCheck size={13} /> : <FiCopy size={13} />}
+                    mfaizanx10@gmail.com {copied ? <FiCheck size={13} /> : <FiCopy size={13} />}
                   </button>
 
                   <div>
@@ -399,9 +398,10 @@ export function Contact() {
                         e.currentTarget.style.background = 'transparent'
                       }}
                     >
-                      <FiDownload size={13} />
-                      <span style={{ flex: 1, textAlign: 'center' }}>Download Resume</span>
-                      <FiChevronDown size={13} style={{ marginLeft: 'auto', transition: 'transform 200ms', transform: resumeOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
+                      <span style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem' }}>
+                        Download Resume <FiDownload size={13} />
+                      </span>
+                      <FiChevronDown size={13} style={{ transition: 'transform 200ms', transform: resumeOpen ? 'rotate(180deg)' : 'rotate(0deg)' }} />
                     </button>
 
                     <AnimatePresence>
@@ -429,7 +429,7 @@ export function Contact() {
                                 download={opt.filename}
                                 onClick={() => setResumeOpen(false)}
                                 style={{
-                                  display: 'flex', alignItems: 'center', gap: '0.5rem',
+                                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.4rem',
                                   padding: '0.6rem 1rem',
                                   fontSize: 'var(--text-sm)', color: 'rgba(255,255,255,0.5)',
                                   textDecoration: 'none',
@@ -445,8 +445,7 @@ export function Contact() {
                                   e.currentTarget.style.color = 'rgba(255,255,255,0.5)'
                                 }}
                               >
-                                <FiDownload size={12} />
-                                {opt.label}
+                                {opt.label} <FiDownload size={12} />
                               </a>
                             ))}
                           </div>
